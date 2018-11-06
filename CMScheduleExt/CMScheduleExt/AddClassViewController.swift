@@ -124,6 +124,5 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     */
     
-    
 
 }
