@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0142452D2190FF440045DA10 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142452C2190FF440045DA10 /* BottomSheetViewController.swift */; };
 		B7051CED218BC12700E54FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7051CEC218BC12700E54FDC /* Main.storyboard */; };
 		DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */; };
 		DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4D21815CAC003BD664 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0142452C2190FF440045DA10 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		B7051CEC218BC12700E54FDC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DEF3CE4821815CAC003BD664 /* CMScheduleExt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMScheduleExt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		DEF3CE4A21815CAC003BD664 /* CMScheduleExt */ = {
 			isa = PBXGroup;
 			children = (
+				0142452C2190FF440045DA10 /* BottomSheetViewController.swift */,
 				DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */,
 				DEF3CE4D21815CAC003BD664 /* ViewController.swift */,
 				B7051CEC218BC12700E54FDC /* Main.storyboard */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */,
+				0142452D2190FF440045DA10 /* BottomSheetViewController.swift in Sources */,
 				DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
