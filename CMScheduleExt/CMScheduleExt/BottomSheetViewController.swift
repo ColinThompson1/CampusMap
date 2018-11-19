@@ -8,6 +8,11 @@
 
 import UIKit
 
+// position of the bottom view
+enum Level {
+    case top, bottom, middle
+}
+
 class BottomSheetViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -26,6 +31,7 @@ class BottomSheetViewController: UIViewController {
             let yComponent = UIScreen.main.bounds.height - 200
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
         }
+
     }
     
     func prepareBackgroundView(){
@@ -41,10 +47,14 @@ class BottomSheetViewController: UIViewController {
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
+        let translation = recognizer.translation(in: self.view).y
+        
         let y = self.view.frame.minY
-        self.view.frame = CGRect(x: 0, y: y + translation.y, width: view.frame.width, height: view.frame.height)
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
+        
+        if !((y + translation) < 200 || (y + translation) > view.frame.height - 200) {
+            self.view.frame = CGRect(x: 0, y: y + translation, width: view.frame.width, height: view.frame.height)
+            recognizer.setTranslation(CGPoint.zero, in: self.view)
+        }
     }
 
     /*
