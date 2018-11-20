@@ -18,12 +18,19 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     var searchActive : Bool = false
-    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201"]
+    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
+    var classSections: [String: Array<String>] = [:]
+
+    
     var filtered:[String] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for name in data {
+            classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
+        }
         
         /* Setup delegates */
         tableView.delegate = self
@@ -114,6 +121,50 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         dismiss(animated: true, completion: nil)
     }
     
+
+    func showAlert() {
+        let alert = UIAlertController(title: "Added Succesfully", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        searchBar.resignFirstResponder()
+        
+        //optional, to get from any UIButton for example
+        
+        let indexPath = tableView.indexPathForSelectedRow
+        let cell = tableView.cellForRow(at: indexPath!)
+        let cellText = cell!.textLabel!.text ?? "Default Class"
+        
+        
+        
+        let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
+        
+       
+        for sectionName in classSections[cellText]! {
+            optionMenu.addAction(UIAlertAction(title: sectionName, style: .default){ _ in
+                        self.showAlert()
+                        })
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        // 4
+
+        optionMenu.addAction(cancelAction)
+        
+        
+//        let action = UIAlertAction(title: "Save", style: .default){ _ in
+//            print("We can run a block of code." )
+//        }
+//        optionMenu.addAction(action)
+        
+        // 5
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -126,3 +177,42 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
 
 }
+
+
+
+//
+// Attempt at using Action Sheet for selcting classes
+
+//func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//    searchBar.resignFirstResponder()
+//
+//    //optional, to get from any UIButton for example
+//
+//    let indexPath = tableView.indexPathForSelectedRow
+//    let cell = tableView.cellForRow(at: indexPath!)
+//    let cellText = cell!.textLabel!.text ?? "Default Class"
+//
+//
+//
+//    let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
+//
+//
+//
+//    let action = UIAlertAction(title: "Save", style: .default){ _ in
+//        print("We can run a block of code." )
+//    }
+//
+//    let saveAction = UIAlertAction(title: "Save", style: .default)
+//
+//    // 3
+//    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//    // 4
+//    optionMenu.addAction(saveAction)
+//    optionMenu.addAction(cancelAction)
+//    optionMenu.addAction(action)
+//
+//    // 5
+//    self.present(optionMenu, animated: true, completion: nil)
+//}
