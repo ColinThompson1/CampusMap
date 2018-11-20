@@ -8,18 +8,16 @@
 
 import UIKit
 
-// position of the bottom view
-enum Level {
-    case top, bottom, middle
-}
-
 class BottomSheetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
-        view.addGestureRecognizer(gesture)        // Do any additional setup after loading the view.
+        let pan = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
+        view.addGestureRecognizer(pan)        // Do any additional setup after loading the view.
+        
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.tapGesture))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +26,7 @@ class BottomSheetViewController: UIViewController {
         
         UIView.animate(withDuration: 0.3) { [weak self] in
             let frame = self?.view.frame
-            let yComponent = UIScreen.main.bounds.height - 200
+            let yComponent = UIScreen.main.bounds.height - 150
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
         }
 
@@ -51,9 +49,41 @@ class BottomSheetViewController: UIViewController {
         
         let y = self.view.frame.minY
         
-        if !((y + translation) < 200 || (y + translation) > view.frame.height - 200) {
-            self.view.frame = CGRect(x: 0, y: y + translation, width: view.frame.width, height: view.frame.height)
-            recognizer.setTranslation(CGPoint.zero, in: self.view)
+        // top
+        if (y + translation < 150) {
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: self.view.frame.height)
+                recognizer.setTranslation(CGPoint.zero, in: self.view)
+                self.view.layoutIfNeeded()
+            }
+        }
+        // bottom
+        else if (y + translation > view.frame.height - 150) {
+            
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame = CGRect(x: 0, y: self.view.frame.height - 150, width: self.view.frame.width, height: self.view.frame.height)
+                recognizer.setTranslation(CGPoint.zero, in: self.view)
+                self.view.layoutIfNeeded()
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame = CGRect(x: 0, y: y + translation, width: self.view.frame.width, height: self.view.frame.height)
+                recognizer.setTranslation(CGPoint.zero, in: self.view)
+            }
+        }
+    }
+    
+    @objc func tapGesture(recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            let location = recognizer.location(in: self.view)
+            
+            if location.y < self.view.frame.minY {
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.height - 150, width: self.view.frame.width, height: self.view.frame.height)
+                }
+            }
         }
     }
 

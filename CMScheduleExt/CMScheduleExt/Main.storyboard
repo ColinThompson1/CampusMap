@@ -34,7 +34,7 @@
                         <viewLayoutGuide key="safeArea" id="vXi-EL-0ai"/>
                     </view>
                     <connections>
-                        <segue destination="ubm-VR-1ML" kind="presentation" id="WzY-J4-Vu8"/>
+                        <segue destination="ubm-VR-1ML" kind="presentation" identifier="BottomSheetSegue" id="WzY-J4-Vu8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AXo-Hi-DBQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -55,6 +55,7 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5ON-ei-jNB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2L-GR-Kb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
