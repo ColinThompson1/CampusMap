@@ -6,7 +6,7 @@ import numpy as np
 import re
 import json
 
-debug = False
+debug = True
 
 
 def execute(path_to_img):
@@ -25,6 +25,7 @@ def _parse_text(text):
     sched = {}
     if debug:
         print("Input:")
+        print(text)
     for line in text.splitlines():
         m = re.match(r"(?P<CourseCode>\w{3,4})\s?(?P<CourseNum>\d{3}\w?)\s?[-|~]\s?(?P<Section>\w{2,3})", line)
         if m:
