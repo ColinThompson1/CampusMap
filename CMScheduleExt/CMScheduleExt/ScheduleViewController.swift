@@ -1,33 +1,37 @@
 //
-//  ScheduleViewController.swift
-//  CMScheduleExt
+//  ViewController.swift
+//  ScheduleBuilder
 //
-//  Created by Zach Albers on 11/6/18.
-//  Copyright © 2018 CampusMAppTeam. All rights reserved.
+//  Created by Xian-Meng Low on 2018-11-01.
+//  Copyright © 2018 Xian-Meng Low. All rights reserved.
 //
 
 import UIKit
 
-var courses = [Class]()
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
-class ScheduleViewController: UIViewController, UITableViewDataSource {
-    
     var onTop = false
-    
+
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
+
+    var courses = [Class] ()
     var mon = [Class]()
     var tue = [Class]()
     var wed = [Class]()
     var thu = [Class]()
     var fri = [Class]()
-    
+
     var count = 0
-    
+    var currentSectionAmount = 4
+    let cellBuffer: CGFloat = 2
+
+    var fetchingMore = false
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return currentSectionAmount + 1
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
             return "Monday"
@@ -39,11 +43,21 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             return "Thursday"
         }else if section == 4{
             return "Friday"
+        }else if section % 5 == 0{
+            return "Monday"
+        }else if section % 5 == 1{
+            return "Tuesday"
+        }else if section % 5 == 2{
+            return "Wednesday"
+        }else if section % 5 == 3{
+            return "Thursday"
+        }else if section % 5 == 4{
+            return "Friday"
         }else{
             return ""
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         count = 0
         if section == 0{
@@ -53,7 +67,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
                     mon.append(course)
                 }
             }
-            
+
             return count
         }else if section == 1{
             for course in courses{
@@ -62,7 +76,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
                     tue.append(course)
                 }
             }
-            
+
             return count
         }else if section == 2{
             for course in courses{
@@ -71,7 +85,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
                     wed.append(course)
                 }
             }
-            
+
             return count
         }else if section == 3{
             for course in courses{
@@ -80,7 +94,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
                     thu.append(course)
                 }
             }
-            
+
             return count
         }else if section == 4{
             for course in courses{
@@ -89,18 +103,58 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
                     fri.append(course)
                 }
             }
-            
+
+            return count
+        }else if section % 5 == 0{
+            for course in courses{
+                if course.days.contains("Monday"){
+                    count += 1
+                }
+            }
+
+            return count
+        }else if section % 5 == 1{
+            for course in courses{
+                if course.days.contains("Tuesday"){
+                    count += 1
+                }
+            }
+
+            return count
+        }else if section % 5 == 2{
+            for course in courses{
+                if course.days.contains("Wednesday"){
+                    count += 1
+                }
+            }
+
+            return count
+        }else if section % 5 == 3{
+            for course in courses{
+                if course.days.contains("Thursday"){
+                    count += 1
+                }
+            }
+
+            return count
+        }else if section % 5 == 4{
+            for course in courses{
+                if course.days.contains("Friday"){
+                    count += 1
+                }
+            }
+
             return count
         }else{
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
-        
+
         var text :String = ""
-        
+
         if indexPath.section == 0{
             text = mon[indexPath.row].name
         }else if indexPath.section == 1{
@@ -111,27 +165,38 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             text = thu[indexPath.row].name
         }else if indexPath.section == 4{
             text = fri[indexPath.row].name
+        }else if indexPath.section % 5 == 0{
+            text = mon[indexPath.row].name
+        }else if indexPath.section % 5 == 1{
+            text = tue[indexPath.row].name
+        }else if indexPath.section % 5 == 2{
+            text = wed[indexPath.row].name
+        }else if indexPath.section % 5 == 3{
+            text = thu[indexPath.row].name
+        }else if indexPath.section % 5 == 4{
+            text = fri[indexPath.row].name
         }
-        
-        
+
+
         cell.textLabel?.text = text //3.
-        
+
         return cell //4.
     }
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
+        classes.delegate = self
         classes.dataSource = self
-        
+
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
         view.addGestureRecognizer(pan)        // Do any additional setup after loading the view.
-        
+
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.tapGesture))
         view.addGestureRecognizer(tap)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -141,26 +206,26 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
         }
     }
-    
+
     private func loadSampleCourses() {
-        
+
         let course1 = Class(name: "CPSC 501", section: 1, startTime: "09:00", endTime: "09:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
         let course2 = Class(name: "CPSC 575", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-        
+
         courses.append(course1!)
         courses.append(course2!)
     }
-    
+
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self.view).y
-        
+
         let y = self.view.frame.minY
-        
+
         // top
         if (y + translation < view.frame.height/6) {
-            
+
             onTop = true
-            
+
             UIView.animate(withDuration: 0.3) {
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
@@ -169,9 +234,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
         }
             // bottom
         else if (y + translation > view.frame.height - view.frame.height/8) {
-            
+
             onTop = false
-            
+
             UIView.animate(withDuration: 0.3) {
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
@@ -185,11 +250,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             }
         }
     }
-    
+
     @objc func tapGesture(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
             let location = recognizer.location(in: self.view)
-            
+
             if location.y < self.view.frame.minY && onTop {
                 onTop = false
                 UIView.animate(withDuration: 0.3) {
@@ -204,7 +269,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             }
         }
     }
-    
-    
-}
 
+
+}
