@@ -3,6 +3,10 @@ import pytesseract
 import cv2
 import os.path
 import numpy as np
+import re
+import json
+
+debug = False
 
 
 def execute(path_to_img):
@@ -17,8 +21,34 @@ def execute(path_to_img):
 
 
 def _parse_text(text):
-    print(text)
-    return text
+    course = {}
+    sched = {}
+    if debug:
+        print("Input:")
+    for line in text.splitlines():
+        m = re.match(r"(?P<CourseCode>\w{3,4})\s?(?P<CourseNum>\d{3}\w?)\s?[-|~]\s?(?P<Section>\w{2,3})", line)
+        if m:
+            if debug: print(m.groups())
+            courseCode = str(m.group("CourseCode"))
+            courseNum = str(m.group("CourseNum"))
+            courseSec = str(m.group("Section"))
+            if courseSec.find("8") == 0 and len(courseSec) > 2 :
+                x = courseSec.find("8")
+                courseSec = "B" + courseSec[x+1:]
+            if courseSec.find("O") > -1:
+                x = courseSec.find("O")
+                courseSec = courseSec[:x] + "0" + courseSec[x+1:]
+            key = courseCode + courseNum + "-"+ courseSec
+            course[key] = {
+                "CourseCode" : courseCode,
+                "CourseNum" : courseNum,
+                "Section" : courseSec
+            }
+            sched.update(course)
+    if debug:
+        print("Classes found:")
+        print(json.dumps(sched))
+    return sched
 
 
 # Preform transformations on image
