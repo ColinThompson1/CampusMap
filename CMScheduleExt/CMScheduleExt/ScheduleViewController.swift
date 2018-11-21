@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     var onTop = false
 
