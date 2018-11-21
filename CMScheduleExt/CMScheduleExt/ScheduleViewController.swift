@@ -8,6 +8,8 @@
 
 import UIKit
 
+var courses = [Class] ()
+
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     var onTop = false
@@ -15,7 +17,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
 
-    var courses = [Class] ()
+    
     var mon = [Class]()
     var tue = [Class]()
     var wed = [Class]()
