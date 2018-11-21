@@ -269,6 +269,30 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    
+    func scrollViewDidScroll (_ scrollView: UIScrollView){
+        let offsetY = scrollView.contentOffset.y
+        let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
+        let buffer: CGFloat = self.cellBuffer * 90
+        
+        if offsetY > bottom - buffer{
+            if !fetchingMore{
+                classes.reloadData()
+                beginBatchFetch()
+            }
+        }
+    }
+    
+    func beginBatchFetch(){
+        fetchingMore = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50 , execute: {
+            self.fetchingMore = false
+            
+            self.currentSectionAmount += 3
+        })
+    }
+
 
 
 }
