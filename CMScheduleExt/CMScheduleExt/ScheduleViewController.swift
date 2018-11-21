@@ -8,12 +8,12 @@
 
 import UIKit
 
+var courses = [Class]()
+
 class ScheduleViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
-    
-    var courses = [Class] ()
     var mon = [Class]()
     var tue = [Class]()
     var wed = [Class]()

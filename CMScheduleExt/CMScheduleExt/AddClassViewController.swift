@@ -146,6 +146,10 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         for sectionName in classSections[cellText]! {
             optionMenu.addAction(UIAlertAction(title: sectionName, style: .default){ _ in
                         self.showAlert()
+                        print(cellText)
+                        print(sectionName)
+                
+
                         })
         }
         

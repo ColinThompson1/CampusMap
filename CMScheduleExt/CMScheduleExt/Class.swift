@@ -30,4 +30,8 @@ class Class{
         self.semester = semester
         self.days = days
     }
+    
+    init?() {
+        <#statements#>
+    }
 }
