@@ -8,7 +8,7 @@ import json
 
 def run():
     if not len(sys.argv) == 2:
-        print('Usage: python process_schedule_image <imagePath>')
+        print('Usage: python local_impl.py <imagePath>')
         sys.exit()
 
     # Verify image exists
