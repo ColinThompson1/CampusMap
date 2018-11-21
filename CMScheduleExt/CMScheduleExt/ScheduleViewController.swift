@@ -1,19 +1,19 @@
 //
-//  ScheduleViewController.swift
-//  CMScheduleExt
+//  ViewController.swift
+//  ScheduleBuilder
 //
-//  Created by Zach Albers on 11/6/18.
-//  Copyright © 2018 CampusMAppTeam. All rights reserved.
+//  Created by Xian-Meng Low on 2018-11-01.
+//  Copyright © 2018 Xian-Meng Low. All rights reserved.
 //
 
 import UIKit
 
-var courses = [Class]()
-
-class ScheduleViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
+    
+    var courses = [Class] ()
     var mon = [Class]()
     var tue = [Class]()
     var wed = [Class]()
@@ -21,9 +21,13 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
     var fri = [Class]()
     
     var count = 0
+    var currentSectionAmount = 4
+    let cellBuffer: CGFloat = 2
+    
+    var fetchingMore = false
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return currentSectionAmount + 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -36,6 +40,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
         }else if section == 3{
             return "Thursday"
         }else if section == 4{
+            return "Friday"
+        }else if section % 5 == 0{
+            return "Monday"
+        }else if section % 5 == 1{
+            return "Tuesday"
+        }else if section % 5 == 2{
+            return "Wednesday"
+        }else if section % 5 == 3{
+            return "Thursday"
+        }else if section % 5 == 4{
             return "Friday"
         }else{
             return ""
@@ -89,6 +103,46 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             }
             
             return count
+        }else if section % 5 == 0{
+            for course in courses{
+                if course.days.contains("Monday"){
+                    count += 1
+                }
+            }
+            
+            return count
+        }else if section % 5 == 1{
+            for course in courses{
+                if course.days.contains("Tuesday"){
+                    count += 1
+                }
+            }
+            
+            return count
+        }else if section % 5 == 2{
+            for course in courses{
+                if course.days.contains("Wednesday"){
+                    count += 1
+                }
+            }
+            
+            return count
+        }else if section % 5 == 3{
+            for course in courses{
+                if course.days.contains("Thursday"){
+                    count += 1
+                }
+            }
+            
+            return count
+        }else if section % 5 == 4{
+            for course in courses{
+                if course.days.contains("Friday"){
+                    count += 1
+                }
+            }
+            
+            return count
         }else{
             return 0
         }
@@ -109,6 +163,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
             text = thu[indexPath.row].name
         }else if indexPath.section == 4{
             text = fri[indexPath.row].name
+        }else if indexPath.section % 5 == 0{
+            text = mon[indexPath.row].name
+        }else if indexPath.section % 5 == 1{
+            text = tue[indexPath.row].name
+        }else if indexPath.section % 5 == 2{
+            text = wed[indexPath.row].name
+        }else if indexPath.section % 5 == 3{
+            text = thu[indexPath.row].name
+        }else if indexPath.section % 5 == 4{
+            text = fri[indexPath.row].name
         }
         
         
@@ -117,14 +181,13 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
         return cell //4.
     }
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
+        classes.delegate = self
         classes.dataSource = self
-        
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
-        view.addGestureRecognizer(gesture)        // Do any additional setup after loading the view.
+        classes.reloadData()
     }
     
     private func loadSampleCourses() {
@@ -136,23 +199,29 @@ class ScheduleViewController: UIViewController, UITableViewDataSource {
         courses.append(course2!)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func scrollViewDidScroll (_ scrollView: UIScrollView){
+        let offsetY = scrollView.contentOffset.y
+        let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
+        let buffer: CGFloat = self.cellBuffer * 90
         
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            let frame = self?.view.frame
-            let yComponent = UIScreen.main.bounds.height - 500
-            self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
+        if offsetY > bottom - buffer{
+            if !fetchingMore{
+                classes.reloadData()
+                beginBatchFetch()
+            }
         }
     }
     
-    @objc func panGesture(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view)
-        let y = self.view.frame.minY
-        self.view.frame = CGRect(x: 0, y: y + translation.y, width: view.frame.width, height: view.frame.height)
-        recognizer.setTranslation(CGPoint.zero, in: self.view)
+    func beginBatchFetch(){
+        fetchingMore = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50 , execute: {
+            self.fetchingMore = false
+            
+            self.currentSectionAmount += 3
+        })
     }
-    
-    
+
+
 }
 
