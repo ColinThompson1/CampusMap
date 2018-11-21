@@ -19,15 +19,15 @@ class ViewController: UIViewController {
     }
     
     func addBottomSheetView() {
-        let bottomVC = storyboard!.instantiateViewController(withIdentifier: "BottomView")
+        let container = storyboard!.instantiateViewController(withIdentifier: "BottomView")
         
-        self.addChild(bottomVC)
-        self.view.addSubview(bottomVC.view)
-        bottomVC.didMove(toParent: self)
+        self.addChild(container)
+        self.view.addSubview(container.view)
+        container.didMove(toParent: self)
         
         let height = view.frame.height
         let width = view.frame.width
-        bottomVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+        container.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
 

@@ -31,7 +31,7 @@ class Class{
         self.days = days
     }
     
-    init?() {
-        <#statements#>
-    }
+//    init?() {
+//        <#statements#>
+//    }
 }

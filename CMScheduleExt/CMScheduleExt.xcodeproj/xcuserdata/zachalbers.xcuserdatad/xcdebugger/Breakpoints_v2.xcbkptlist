@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CMScheduleExt/ScheduleViewController.swift"
-            timestampString = "564522159.6714211"
+            timestampString = "564528137.511574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
             landmarkName = "ScheduleViewController"
             landmarkType = "3">
             <Locations>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CMScheduleExt/ScheduleViewController.swift"
-            timestampString = "564522160.294381"
+            timestampString = "564528137.5116709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "ScheduleViewController"
             landmarkType = "3">
             <Locations>
