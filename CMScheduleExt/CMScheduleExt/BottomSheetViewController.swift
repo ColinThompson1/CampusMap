@@ -9,6 +9,8 @@
 import UIKit
 
 class BottomSheetViewController: UIViewController {
+    
+    var onTop = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class BottomSheetViewController: UIViewController {
         
         UIView.animate(withDuration: 0.3) { [weak self] in
             let frame = self?.view.frame
-            let yComponent = UIScreen.main.bounds.height - 150
+            let yComponent = UIScreen.main.bounds.height - UIScreen.main.bounds.height/8
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
         }
 
@@ -50,19 +52,23 @@ class BottomSheetViewController: UIViewController {
         let y = self.view.frame.minY
         
         // top
-        if (y + translation < 150) {
+        if (y + translation < view.frame.height/6) {
+            
+            onTop = true
             
             UIView.animate(withDuration: 0.3) {
-                self.view.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: self.view.frame.height)
+                self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
                 self.view.layoutIfNeeded()
             }
         }
         // bottom
-        else if (y + translation > view.frame.height - 150) {
+        else if (y + translation > view.frame.height - view.frame.height/8) {
+            
+            onTop = false
             
             UIView.animate(withDuration: 0.3) {
-                self.view.frame = CGRect(x: 0, y: self.view.frame.height - 150, width: self.view.frame.width, height: self.view.frame.height)
+                self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
                 self.view.layoutIfNeeded()
             }
@@ -79,9 +85,16 @@ class BottomSheetViewController: UIViewController {
         if recognizer.state == .ended {
             let location = recognizer.location(in: self.view)
             
-            if location.y < self.view.frame.minY {
+            if location.y < self.view.frame.minY && onTop {
+                onTop = false
                 UIView.animate(withDuration: 0.3) {
-                    self.view.frame = CGRect(x: 0, y: self.view.frame.height - 150, width: self.view.frame.width, height: self.view.frame.height)
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
+                }
+            }
+            else if location.y < self.view.frame.minY && !onTop {
+                onTop = true
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
                 }
             }
         }
