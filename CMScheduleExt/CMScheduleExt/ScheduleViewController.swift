@@ -22,28 +22,33 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var thu = [Class]()
     var fri = [Class]()
 
+    var events:[Date:[Class]] = [:]
+    
     var count = 0
     var currentSectionAmount = 4
     let cellBuffer: CGFloat = 2
-
+    
     var fetchingMore = false
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        
+        /*let picker = UIDatePicker()
+         
+         
+         
+         let todaysEvents:[Class] = [
+         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
+         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
+         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!
+         ]
+         
+         events[Date()] = todaysEvents*/
+        
         return currentSectionAmount + 1
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            return "Monday"
-        }else if section == 1{
-            return "Tuesday"
-        }else if section == 2{
-            return "Wednesday"
-        }else if section == 3{
-            return "Thursday"
-        }else if section == 4{
-            return "Friday"
-        }else if section % 5 == 0{
+        if section % 5 == 0{
             return "Monday"
         }else if section % 5 == 1{
             return "Tuesday"
@@ -57,115 +62,30 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return ""
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         count = 0
-        if section == 0{
-            for course in courses{
-                if course.days.contains("Monday"){
-                    count += 1
-                    mon.append(course)
-                }
-            }
-
-            return count
-        }else if section == 1{
-            for course in courses{
-                if course.days.contains("Tuesday"){
-                    count += 1
-                    tue.append(course)
-                }
-            }
-
-            return count
-        }else if section == 2{
-            for course in courses{
-                if course.days.contains("Wednesday"){
-                    count += 1
-                    wed.append(course)
-                }
-            }
-
-            return count
-        }else if section == 3{
-            for course in courses{
-                if course.days.contains("Thursday"){
-                    count += 1
-                    thu.append(course)
-                }
-            }
-
-            return count
-        }else if section == 4{
-            for course in courses{
-                if course.days.contains("Friday"){
-                    count += 1
-                    fri.append(course)
-                }
-            }
-
-            return count
-        }else if section % 5 == 0{
-            for course in courses{
-                if course.days.contains("Monday"){
-                    count += 1
-                }
-            }
-
-            return count
+        if section % 5 == 0{
+            return mon.count
         }else if section % 5 == 1{
-            for course in courses{
-                if course.days.contains("Tuesday"){
-                    count += 1
-                }
-            }
-
-            return count
+            return tue.count
         }else if section % 5 == 2{
-            for course in courses{
-                if course.days.contains("Wednesday"){
-                    count += 1
-                }
-            }
-
-            return count
+            return wed.count
         }else if section % 5 == 3{
-            for course in courses{
-                if course.days.contains("Thursday"){
-                    count += 1
-                }
-            }
-
-            return count
+            return thu.count
         }else if section % 5 == 4{
-            for course in courses{
-                if course.days.contains("Friday"){
-                    count += 1
-                }
-            }
-
-            return count
+            return fri.count
         }else{
             return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
-
+        
         var text :String = ""
-
-        if indexPath.section == 0{
-            text = mon[indexPath.row].name
-        }else if indexPath.section == 1{
-            text = tue[indexPath.row].name
-        }else if indexPath.section == 2{
-            text = wed[indexPath.row].name
-        }else if indexPath.section == 3{
-            text = thu[indexPath.row].name
-        }else if indexPath.section == 4{
-            text = fri[indexPath.row].name
-        }else if indexPath.section % 5 == 0{
+        
+        if indexPath.section % 5 == 0{
             text = mon[indexPath.row].name
         }else if indexPath.section % 5 == 1{
             text = tue[indexPath.row].name
@@ -176,17 +96,22 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }else if indexPath.section % 5 == 4{
             text = fri[indexPath.row].name
         }
-
-
+        
+        
         cell.textLabel?.text = text //3.
-
+        
         return cell //4.
     }
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
+        mon = courses.filter({$0.days.contains("Monday")})
+        tue = courses.filter({$0.days.contains("Tuesday")})
+        wed = courses.filter({$0.days.contains("Wednesday")})
+        thu = courses.filter({$0.days.contains("Thursday")})
+        fri = courses.filter({$0.days.contains("Friday")})
         classes.delegate = self
         classes.dataSource = self
 
