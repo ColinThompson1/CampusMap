@@ -1,4 +1,5 @@
-import boto3, json
+import boto3
+import json
 import scheduleocr
 
 # Driver to execute scheduleocr on aws lambda

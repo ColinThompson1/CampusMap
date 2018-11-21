@@ -1,6 +1,7 @@
 import sys
 import os
 import scheduleocr
+import json
 
 # Driver to execute scheduleocr locally
 
@@ -15,7 +16,7 @@ def run():
         print('No image found')
         sys.exit()
 
-    print(scheduleocr.execute(sys.argv[1]))
+    print(json.dumps(scheduleocr.execute(sys.argv[1])))
 
 
 run()
