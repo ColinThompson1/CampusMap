@@ -9,6 +9,7 @@
 import UIKit
 
 var courses = [Class] ()
+var classData = CourseData().getData()
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 

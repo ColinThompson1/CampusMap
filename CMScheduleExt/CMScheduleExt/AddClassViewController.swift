@@ -11,8 +11,12 @@ import UIKit
 class AddClassViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     // MARK: Data
-    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
+//    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
+    
+    var data = Array(classData.keys).sorted()
+    
     var classSections: [String: Array<String>] = [:]
+    
     
     // MARK: Properties
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,11 +31,19 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        var toPrint = [String]()
+        
+        
+//        print(classData[0])
+        
+
+        
         
         // MARK: Loading Class Data
         for name in data {
             classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
         }
+        
         
         // Setup Delegates
         tableView.delegate = self
@@ -63,7 +75,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
 
         if((!selected.isEmpty) && indexPath.row == selected.row) {
-            return 150
+            return 110
         } else {
         return 40
         }
@@ -99,14 +111,31 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         //this must be called after changing any size or margin property of this class to get acurrate margin
         horizontalScrollView.setItemsMarginOnce()
         
-        for section in classSections[cellName!]!{
+//        for section in classSections[cellName!]!{
+//            let button = UIButton(frame: CGRect.zero)
+//            button.setTitle(section, for: .normal)
+//            let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
+//            button.backgroundColor = backColor
+//            button.setTitleColor(UIColor.black, for: .normal)
+//            button.layer.cornerRadius = 5
+//            button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Thin" , size: 20)
+//            button.addTarget(self, action: #selector(sectionSelected), for: .touchUpInside)
+//
+//
+//            horizontalScrollView.addItem(button)
+//        }
+        
+        let currentClassSections = classData[cellName!]!["periodics"]
+        
+        for section in currentClassSections{
+            
             let button = UIButton(frame: CGRect.zero)
-            button.setTitle(section, for: .normal)
+            button.setTitle("\(section.1["type"]) \(section.1["name"])", for: .normal)
             let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
             button.backgroundColor = backColor
             button.setTitleColor(UIColor.black, for: .normal)
             button.layer.cornerRadius = 5
-            button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Thin" , size: 20)
+            button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Thin" , size: 17)
             button.addTarget(self, action: #selector(sectionSelected), for: .touchUpInside)
             
             
@@ -121,14 +150,14 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 60))
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.contentView, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1, constant: 0))
         
-        tableView.reloadData()
+
         
         selectedScroller = horizontalScrollView
         
         selected = indexPath
         searchBar.resignFirstResponder()
         
-        
+        tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
         
@@ -171,6 +200,10 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.isHidden = true
         searchBar.setShowsCancelButton(false, animated: true)
         filtered = []
+        if (selectedScroller != nil) {
+            selectedScroller?.removeFromSuperview()
+            selected.row = -1
+        }
         self.tableView.reloadData()
     }
     
@@ -199,6 +232,10 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else {
             filtered = []
+        }
+        if (selectedScroller != nil) {
+            selectedScroller?.removeFromSuperview()
+            selected.row = -1
         }
         self.tableView.reloadData()
     }
