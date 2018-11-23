@@ -9,91 +9,35 @@
 import UIKit
 
 class AddClassViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
+    
+    // MARK: Data
+    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
+    var classSections: [String: Array<String>] = [:]
+    
+    // MARK: Properties
     @IBOutlet weak var searchBar: UISearchBar!
-    
     @IBOutlet weak var tableView: UITableView!
-    
-
-    
     
     var searchActive : Bool = false
     var selected: IndexPath = IndexPath.init()
     var selectedScroller: ASHorizontalScrollView? = nil
-    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
-    var classSections: [String: Array<String>] = [:]
-
-    
     var filtered:[String] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        // MARK: Loading Class Data
         for name in data {
             classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
         }
         
-        /* Setup delegates */
+        // Setup Delegates
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         
-        
-
-    }
-    
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true;
-        tableView.isHidden = false
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false;
-//        self.searchBar.endEditing(true)
-//        print("searchBarTextDidEndEditing")
-
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        searchActive = false;
-        self.searchBar.endEditing(true)
-        tableView.isHidden = true
-        searchBar.setShowsCancelButton(false, animated: true)
-        filtered = []
-        self.tableView.reloadData()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-        searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchText != "" {
-        
-
-        
-        filtered = data.filter({ (text) -> Bool in
-            let tmp: NSString = text as NSString
-            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-            return range.location != NSNotFound
-
-        })
-        if(filtered.count == 0){
-            searchActive = false;
-        } else {
-            searchActive = true;
-        }
-        }
-        else {
-           filtered = []
-        }
-        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,6 +45,9 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    //MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -128,34 +75,17 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
 
-        
         if(searchActive){
-            
             cell.courseName.text = filtered[indexPath.row]
         }
     return cell;
     }
-
-    @IBAction func undweaadosfj(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-
-    func showAlert() {
-        let alert = UIAlertController(title: "Added Succesfully", message: "", preferredStyle: .alert)
-        self.present(alert, animated: true, completion: nil)
-        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-        //optional, to get from any UIButton for example
-        
-        let indexPath_ = tableView.indexPathForSelectedRow!
-        let cell = tableView.cellForRow(at: indexPath_) as! ClassTableViewCell
+        let cell = tableView.cellForRow(at: indexPath) as! ClassTableViewCell
         let cellName = cell.courseName.text
-
+        
         
         if (selectedScroller != nil) {
             selectedScroller?.removeFromSuperview()
@@ -183,7 +113,6 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
             horizontalScrollView.addItem(button)
         }
         
-       
         
         cell.contentView.addSubview(horizontalScrollView)
         horizontalScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -195,7 +124,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.reloadData()
         
         selectedScroller = horizontalScrollView
-
+        
         selected = indexPath
         searchBar.resignFirstResponder()
         
@@ -203,51 +132,25 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.beginUpdates()
         tableView.endUpdates()
         
-        
-
-
-        
-
-        
-//
-//
-//
-//        let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
-//
-//
-//        for sectionName in classSections[cellText]! {
-//            optionMenu.addAction(UIAlertAction(title: sectionName, style: .default){ _ in
-//                        self.showAlert()
-//                        print(cellText)
-//                        print(sectionName)
-//
-//
-//                        })
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//
-//        // 4
-//
-//        optionMenu.addAction(cancelAction)
-//
-//
-////        let action = UIAlertAction(title: "Save", style: .default){ _ in
-////            print("We can run a block of code." )
-////        }
-////        optionMenu.addAction(action)
-//
-//        // 5
-//        self.present(optionMenu, animated: true, completion: nil)
     }
     
+    //    MARK: Actions
+
+    @IBAction func undweaadosfj(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
-    
+
+    func showAlert() {
+        let alert = UIAlertController(title: "Added Succesfully", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
     
     @objc func sectionSelected(sender: UIButton!) {
         showAlert()
-        
     }
+    
     
     /*
     // MARK: - Navigation
@@ -259,12 +162,63 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     */
     
+    //    MARK: Searchbar
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchActive = false;
+        self.searchBar.endEditing(true)
+        tableView.isHidden = true
+        searchBar.setShowsCancelButton(false, animated: true)
+        filtered = []
+        self.tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText != "" {
+            
+            
+            
+            filtered = data.filter({ (text) -> Bool in
+                let tmp: NSString = text as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+                
+            })
+            if(filtered.count == 0){
+                searchActive = false;
+            } else {
+                searchActive = true;
+            }
+        }
+        else {
+            filtered = []
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+        tableView.isHidden = false
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
 
 }
 
 
 
-//
+
 // Attempt at using Action Sheet for selcting classes
 
 //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -300,3 +254,35 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
 //    // 5
 //    self.present(optionMenu, animated: true, completion: nil)
 //}
+
+
+
+
+//
+//        let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
+//
+//
+//        for sectionName in classSections[cellText]! {
+//            optionMenu.addAction(UIAlertAction(title: sectionName, style: .default){ _ in
+//                        self.showAlert()
+//                        print(cellText)
+//                        print(sectionName)
+//
+//
+//                        })
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        // 4
+//
+//        optionMenu.addAction(cancelAction)
+//
+//
+////        let action = UIAlertAction(title: "Save", style: .default){ _ in
+////            print("We can run a block of code." )
+////        }
+////        optionMenu.addAction(action)
+//
+//        // 5
+//        self.present(optionMenu, animated: true, completion: nil)
