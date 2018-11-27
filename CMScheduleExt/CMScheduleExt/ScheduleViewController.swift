@@ -118,11 +118,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         classes.delegate = self
         classes.dataSource = self
 
-        let pan = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
-        view.addGestureRecognizer(pan)        // Do any additional setup after loading the view.
-
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.tapGesture))
-        view.addGestureRecognizer(tap)
+        let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
+        view.addGestureRecognizer(pan)
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -133,8 +131,48 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             let yComponent = UIScreen.main.bounds.height - UIScreen.main.bounds.height/8
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
         }
-    }
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        
+        
+        // Blur the background
+        view.backgroundColor = .clear
+        let blurEffect = UIBlurEffect.init(style: .light)
+        let bluredView = UIVisualEffectView.init(effect: blurEffect)
 
+        bluredView.frame = self.view.bounds
+        bluredView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(bluredView, at: 0)
+        
+        
+        // Create the navigation bar
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        navigationBar.backgroundColor = UIColor.clear
+        // Make the navigation bar a subview of the current view controller
+        self.view.addSubview(navigationBar)
+        
+        // title
+        let navigationItem = UINavigationItem()
+        navigationItem.title = "Schedule"
+        
+        // Create right button
+        let rightButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(ScheduleViewController.addClass))
+        navigationItem.rightBarButtonItem = rightButton
+        
+        // Assign the navigation item to the navigation bar
+        navigationBar.items = [navigationItem]
+    }
+    
+    
+    @objc func addClass(sender: UIBarButtonItem) {
+        
+        let addVC = storyboard!.instantiateViewController(withIdentifier :"AddClass") as! AddClassViewController
+        self.present(addVC, animated: true)
+        
+        // reset the location of the card
+        onTop = false
+    }
+    
     private func loadSampleCourses() {
 
         let course1 = Class(name: "CPSC 501", section: 1, startTime: "09:00", endTime: "09:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
@@ -145,23 +183,21 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self.view).y
+        let velocity = recognizer.velocity(in: self.view).y
 
-        let y = self.view.frame.minY
-
-        // top
-        if (y + translation < view.frame.height/6) {
+        // go to top
+        if (!onTop && (velocity < -300)) {
 
             onTop = true
-
+            
             UIView.animate(withDuration: 0.3) {
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
                 self.view.layoutIfNeeded()
             }
         }
-            // bottom
-        else if (y + translation > view.frame.height - view.frame.height/8) {
+        // go to bottom
+        else if (onTop && (velocity > 300)) {
 
             onTop = false
 
@@ -169,31 +205,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
                 self.view.layoutIfNeeded()
-            }
-        }
-        else {
-            UIView.animate(withDuration: 0.3) {
-                self.view.frame = CGRect(x: 0, y: y + translation, width: self.view.frame.width, height: self.view.frame.height)
-                recognizer.setTranslation(CGPoint.zero, in: self.view)
-            }
-        }
-    }
-
-    @objc func tapGesture(recognizer: UITapGestureRecognizer) {
-        if recognizer.state == .ended {
-            let location = recognizer.location(in: self.view)
-
-            if location.y < self.view.frame.minY && onTop {
-                onTop = false
-                UIView.animate(withDuration: 0.3) {
-                    self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
-                }
-            }
-            else if location.y < self.view.frame.minY && !onTop {
-                onTop = true
-                UIView.animate(withDuration: 0.3) {
-                    self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
-                }
             }
         }
     }
@@ -220,7 +231,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             self.currentSectionAmount += 3
         })
     }
-
-
-
+    
+    
 }

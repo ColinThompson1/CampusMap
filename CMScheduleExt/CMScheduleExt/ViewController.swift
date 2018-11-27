@@ -10,15 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-       addBottomSheetView()
-        
-        
+        addBottomSheetView()
     }
     
     func addBottomSheetView() {
@@ -33,6 +29,5 @@ class ViewController: UIViewController {
         container.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
-
 }
 
