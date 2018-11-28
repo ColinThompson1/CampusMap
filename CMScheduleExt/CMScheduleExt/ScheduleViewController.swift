@@ -30,6 +30,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var count = 0
     var currentSectionAmount = 4
     let cellBuffer: CGFloat = 2
+   
+    let date = Date()
+    let calendar = Calendar.current
+    var currentDate : Date = Date()
     
     var fetchingMore = false
     
@@ -51,16 +55,28 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            currentDate = date
+            return "Monday " + dateToString(currentDate)
+        }
+        
+        // todays date + section number days
+        
         if section % 5 == 0{
-            return "Monday"
+            currentDate = getNextDay(currentDate)
+            return "Monday " + dateToString(currentDate)
         }else if section % 5 == 1{
-            return "Tuesday"
+            currentDate = getNextDay(currentDate)
+            return "Tuesday " + dateToString(currentDate)
         }else if section % 5 == 2{
-            return "Wednesday"
+            currentDate = getNextDay(currentDate)
+            return "Wednesday " + dateToString(currentDate)
         }else if section % 5 == 3{
-            return "Thursday"
+            currentDate = getNextDay(currentDate)
+            return "Thursday " + dateToString(currentDate)
         }else if section % 5 == 4{
-            return "Friday"
+            currentDate = getNextDay(currentDate)
+            return "Friday " + dateToString(currentDate)
         }else{
             return ""
         }
@@ -177,9 +193,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let course1 = Class(name: "CPSC 501", section: 1, startTime: "09:00", endTime: "09:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
         let course2 = Class(name: "CPSC 575", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-
+        let course3 = Class(name: "CPSC 413", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Tuesday", "Thursday"])
+        
         courses.append(course1!)
         courses.append(course2!)
+        courses.append(course3!)
     }
 
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
@@ -230,6 +248,18 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             
             self.currentSectionAmount += 3
         })
+    }
+    
+    func getNextDay(_ date: Date) -> Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: date)!
+    }
+    
+    func dateToString(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "LLLL"
+        let month = dateFormatter.string(from: date)
+        let day = calendar.component(.day, from: date)
+        return "\(month), \(day)"
     }
     
     
