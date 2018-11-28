@@ -24,6 +24,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var wed = [Class]()
     var thu = [Class]()
     var fri = [Class]()
+    var sat = [Class]()
+    var sun = [Class]()
 
     var events:[Date:[Class]] = [:]
     
@@ -33,7 +35,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
    
     let date = Date()
     let calendar = Calendar.current
-    var currentDate : Date = Date()
+    let dateFormatter = DateFormatter()
     
     var fetchingMore = false
     
@@ -55,67 +57,37 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            currentDate = date
-            return "Monday " + dateToString(currentDate)
-        }
         
-        // todays date + section number days
-        
-        if section % 5 == 0{
-            currentDate = getNextDay(currentDate)
-            return "Monday " + dateToString(currentDate)
-        }else if section % 5 == 1{
-            currentDate = getNextDay(currentDate)
-            return "Tuesday " + dateToString(currentDate)
-        }else if section % 5 == 2{
-            currentDate = getNextDay(currentDate)
-            return "Wednesday " + dateToString(currentDate)
-        }else if section % 5 == 3{
-            currentDate = getNextDay(currentDate)
-            return "Thursday " + dateToString(currentDate)
-        }else if section % 5 == 4{
-            currentDate = getNextDay(currentDate)
-            return "Friday " + dateToString(currentDate)
-        }else{
-            return ""
-        }
+        return dateToString(getNextDay(date, section))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        count = 0
-        if section % 5 == 0{
-            return mon.count
-        }else if section % 5 == 1{
-            return tue.count
-        }else if section % 5 == 2{
-            return wed.count
-        }else if section % 5 == 3{
-            return thu.count
-        }else if section % 5 == 4{
-            return fri.count
-        }else{
-            return 0
+        dateFormatter.dateFormat = "EEEE"
+        print(dateFormatter.string(from: getNextDay(date, section)))
+        if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
+            events[getNextDay(date, section)] = mon
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Tuesday"){
+            events[getNextDay(date, section)] = tue
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Wednesday"){
+            events[getNextDay(date, section)] = wed
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Thursday"){
+            events[getNextDay(date, section)] = thu
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Friday"){
+            events[getNextDay(date, section)] = fri
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Saturday"){
+            events[getNextDay(date, section)] = sat
+        }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Sunday"){
+            events[getNextDay(date, section)] = sun
         }
+        let some : [Class] = events[getNextDay(date, section)]!
+        return (some.count)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
         
         var text :String = ""
-        
-        if indexPath.section % 5 == 0{
-            text = mon[indexPath.row].name
-        }else if indexPath.section % 5 == 1{
-            text = tue[indexPath.row].name
-        }else if indexPath.section % 5 == 2{
-            text = wed[indexPath.row].name
-        }else if indexPath.section % 5 == 3{
-            text = thu[indexPath.row].name
-        }else if indexPath.section % 5 == 4{
-            text = fri[indexPath.row].name
-        }
-        
+        text = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
         
         cell.textLabel?.text = text //3.
         
@@ -136,6 +108,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
+        
+        print(classData["ACCT 217"]!["periodics"][0]["time-periods"])
         
     }
 
@@ -250,16 +224,17 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
-    func getNextDay(_ date: Date) -> Date {
-        return Calendar.current.date(byAdding: .day, value: 1, to: date)!
+    func getNextDay(_ date: Date, _ days: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
     
     func dateToString(_ date: Date) -> String{
-        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EE"
+        let nameOfDay = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "LLLL"
         let month = dateFormatter.string(from: date)
         let day = calendar.component(.day, from: date)
-        return "\(month), \(day)"
+        return "\(nameOfDay) \(month), \(day)"
     }
     
     
