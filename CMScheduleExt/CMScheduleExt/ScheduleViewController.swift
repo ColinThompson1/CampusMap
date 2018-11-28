@@ -63,20 +63,15 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         // todays date + section number days
         
         if section % 5 == 0{
-            currentDate = getNextDay(currentDate)
-            return "Monday " + dateToString(currentDate)
+            return "Monday " + dateToString(getNextDay(date, section))
         }else if section % 5 == 1{
-            currentDate = getNextDay(currentDate)
-            return "Tuesday " + dateToString(currentDate)
+            return "Tuesday " + dateToString(getNextDay(date, section))
         }else if section % 5 == 2{
-            currentDate = getNextDay(currentDate)
-            return "Wednesday " + dateToString(currentDate)
+            return "Wednesday " + dateToString(getNextDay(date, section))
         }else if section % 5 == 3{
-            currentDate = getNextDay(currentDate)
-            return "Thursday " + dateToString(currentDate)
+            return "Thursday " + dateToString(getNextDay(date, section))
         }else if section % 5 == 4{
-            currentDate = getNextDay(currentDate)
-            return "Friday " + dateToString(currentDate)
+            return "Friday " + dateToString(getNextDay(date, section))
         }else{
             return ""
         }
@@ -250,8 +245,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
-    func getNextDay(_ date: Date) -> Date {
-        return Calendar.current.date(byAdding: .day, value: 1, to: date)!
+    func getNextDay(_ date: Date, _ days: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
     
     func dateToString(_ date: Date) -> String{
