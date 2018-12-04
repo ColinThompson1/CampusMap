@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AwD-Sw-Yli">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AwD-Sw-Yli">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -148,6 +148,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-d5-igC">
+                                <rect key="frame" x="164" y="300" width="46" height="30"/>
+                                <state key="normal" title="Today"/>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-mR-sjt">
                                 <rect key="frame" x="0.0" y="288" width="375" height="379"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -173,11 +177,15 @@
                         <constraints>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="4Nn-S4-Nu4" secondAttribute="bottom" constant="8" id="4xR-ic-fwH"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" id="B9o-wD-Xvc"/>
+                            <constraint firstItem="5dg-d5-igC" firstAttribute="top" secondItem="4Nn-S4-Nu4" secondAttribute="bottom" constant="20" id="BbD-JH-OhC"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="165" id="H8M-gP-6mc"/>
+                            <constraint firstItem="5dg-d5-igC" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" constant="164" id="OEL-dP-w6P"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="YdI-9a-HNM"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="bottom" secondItem="zro-v4-7SC" secondAttribute="bottom" id="ius-6b-hEJ"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="mIo-y6-MfW"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="o5k-H3-G20"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="y3E-Hk-jHy"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="337" id="zfs-Iq-dbT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zro-v4-7SC"/>
                     </view>
@@ -190,6 +198,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="classes" destination="b6w-mR-sjt" id="Oq7-CD-mK9"/>
+                        <outlet property="today" destination="5dg-d5-igC" id="GmV-1g-8C5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CGp-LX-HqZ" sceneMemberID="firstResponder"/>
@@ -219,7 +228,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="55281" width="256" height="256"/>
-        <image name="OutdoorMap" width="375" height="667"/>
+        <image name="55281" width="36.283466339111328" height="36.283466339111328"/>
+        <image name="OutdoorMap" width="750" height="1334"/>
     </resources>
 </document>

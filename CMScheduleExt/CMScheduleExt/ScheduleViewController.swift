@@ -12,7 +12,8 @@ var courses = [Class] ()
 var classData = CourseData().getData()
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-
+    @IBOutlet weak var today: UIButton!
+    
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
@@ -40,18 +41,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var fetchingMore = false
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        /*let picker = UIDatePicker()
-         
-         
-         
-         let todaysEvents:[Class] = [
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!
-         ]
-         
-         events[Date()] = todaysEvents*/
         
         return currentSectionAmount + 1
     }
@@ -94,7 +83,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell //4.
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
@@ -105,6 +93,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         fri = courses.filter({$0.days.contains("Friday")})
         classes.delegate = self
         classes.dataSource = self
+        
+        view.bringSubviewToFront(today)
+        today.setTitle("Today", for: .normal)
+        today.isHidden = true
 
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
@@ -205,6 +197,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let offsetY = scrollView.contentOffset.y
         let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
         let buffer: CGFloat = self.cellBuffer * 90
+        
+        let indexPath = classes.indexPathsForVisibleRows
+        let sectionNumber = indexPath?[0].section
+        
+        print (sectionNumber)
+        if (sectionNumber! > 0 && sectionNumber != nil){
+            today.isHidden = false;
+        }else{
+            today.isHidden = true;
+        }
         
         if offsetY > bottom - buffer{
             if !fetchingMore{
