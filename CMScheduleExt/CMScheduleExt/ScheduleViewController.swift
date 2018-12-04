@@ -86,11 +86,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
-        mon = courses.filter({$0.days.contains("Monday")})
-        tue = courses.filter({$0.days.contains("Tuesday")})
-        wed = courses.filter({$0.days.contains("Wednesday")})
-        thu = courses.filter({$0.days.contains("Thursday")})
-        fri = courses.filter({$0.days.contains("Friday")})
+        sortCourses()
         classes.delegate = self
         classes.dataSource = self
         
@@ -244,5 +240,14 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return "\(nameOfDay) \(month), \(day)"
     }
     
+    func sortCourses(){
+        mon = courses.filter({$0.days.contains("Monday")})
+        tue = courses.filter({$0.days.contains("Tuesday")})
+        wed = courses.filter({$0.days.contains("Wednesday")})
+        thu = courses.filter({$0.days.contains("Thursday")})
+        fri = courses.filter({$0.days.contains("Friday")})
+        sat = courses.filter({$0.days.contains("Saturday")})
+        sun = courses.filter({$0.days.contains("Sunday")})
+    }
     
 }
