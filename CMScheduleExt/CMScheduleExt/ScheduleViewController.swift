@@ -138,7 +138,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationItem.title = "Schedule"
         
         // Create right button
-        let rightButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(ScheduleViewController.addClass))
+        let rightButton = UIBarButtonItem(title: "Add Classes", style: UIBarButtonItem.Style.plain, target: self, action: #selector(ScheduleViewController.addClass))
         navigationItem.rightBarButtonItem = rightButton
         
         // Assign the navigation item to the navigation bar
