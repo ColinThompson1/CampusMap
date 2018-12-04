@@ -149,8 +149,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-d5-igC">
-                                <rect key="frame" x="164" y="300" width="46" height="30"/>
+                                <rect key="frame" x="137.5" y="310" width="100" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="RYi-4k-bvR"/>
+                                    <constraint firstAttribute="height" constant="30" id="irV-P2-oJp"/>
+                                </constraints>
                                 <state key="normal" title="Today"/>
+                                <connections>
+                                    <action selector="todayButtonPressed:" destination="1eD-ek-cbL" eventType="touchUpInside" id="Rib-1z-rh0"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-mR-sjt">
                                 <rect key="frame" x="0.0" y="288" width="375" height="379"/>
@@ -175,17 +183,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="5dg-d5-igC" firstAttribute="top" secondItem="4Nn-S4-Nu4" secondAttribute="bottom" constant="30" id="2jl-qb-x4k"/>
+                            <constraint firstItem="5dg-d5-igC" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" constant="137.5" id="3jy-gr-zPN"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="4Nn-S4-Nu4" secondAttribute="bottom" constant="8" id="4xR-ic-fwH"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" id="B9o-wD-Xvc"/>
-                            <constraint firstItem="5dg-d5-igC" firstAttribute="top" secondItem="4Nn-S4-Nu4" secondAttribute="bottom" constant="20" id="BbD-JH-OhC"/>
-                            <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="165" id="H8M-gP-6mc"/>
-                            <constraint firstItem="5dg-d5-igC" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" constant="164" id="OEL-dP-w6P"/>
+                            <constraint firstItem="5dg-d5-igC" firstAttribute="centerX" secondItem="b6w-mR-sjt" secondAttribute="centerX" id="VND-JD-RtI"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="YdI-9a-HNM"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="137.5" id="gr7-Vn-MS4"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="bottom" secondItem="zro-v4-7SC" secondAttribute="bottom" id="ius-6b-hEJ"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="mIo-y6-MfW"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="o5k-H3-G20"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="327" id="q1T-bG-gba"/>
                             <constraint firstItem="4Nn-S4-Nu4" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="y3E-Hk-jHy"/>
-                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="337" id="zfs-Iq-dbT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zro-v4-7SC"/>
                     </view>

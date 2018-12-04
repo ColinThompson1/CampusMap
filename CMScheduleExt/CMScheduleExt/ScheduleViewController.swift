@@ -201,7 +201,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let indexPath = classes.indexPathsForVisibleRows
         let sectionNumber = indexPath?[0].section
         
-        print (sectionNumber)
         if (sectionNumber! > 0 && sectionNumber != nil){
             today.isHidden = false;
         }else{
@@ -226,6 +225,12 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    @IBAction func todayButtonPressed(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+    }
     func getNextDay(_ date: Date, _ days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
