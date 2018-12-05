@@ -9,7 +9,16 @@
 import UIKit
 
 var courses = [Class] ()
+
+var mon = [Class]()
+var tue = [Class]()
+var wed = [Class]()
+var thu = [Class]()
+var fri = [Class]()
+var sat = [Class]()
+var sun = [Class]()
 var classData = CourseData().getData()
+//classData["CPSC 313"]!["perdiodics"]!["Lecture 1"]!
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var today: UIButton!
@@ -19,14 +28,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
 
-    
-    var mon = [Class]()
-    var tue = [Class]()
-    var wed = [Class]()
-    var thu = [Class]()
-    var fri = [Class]()
-    var sat = [Class]()
-    var sun = [Class]()
+
 
     var events:[Date:[Class]] = [:]
     
@@ -52,11 +54,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
-        print(dateFormatter.string(from: getNextDay(date, section)))
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
             events[getNextDay(date, section)] = mon
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Tuesday"){
             events[getNextDay(date, section)] = tue
+            print (tue.count)
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Wednesday"){
             events[getNextDay(date, section)] = wed
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Thursday"){
@@ -85,6 +87,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
         loadSampleCourses()
         sortCourses()
         classes.delegate = self
@@ -156,9 +159,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func loadSampleCourses() {
 
-        let course1 = Class(name: "CPSC 501", section: 1, startTime: "09:00", endTime: "09:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-        let course2 = Class(name: "CPSC 575", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-        let course3 = Class(name: "CPSC 413", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Tuesday", "Thursday"])
+        let course1 = Class(name: "CPSC 501", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course2 = Class(name: "CPSC 575", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course3 = Class(name: "CPSC 413", type: "Lecture 1", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
         
         courses.append(course1!)
         courses.append(course2!)
@@ -262,14 +265,32 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return "\(nameOfDay) \(month), \(day)"
     }
     
-    func sortCourses(){
-        mon = courses.filter({$0.days.contains("Monday")})
-        tue = courses.filter({$0.days.contains("Tuesday")})
-        wed = courses.filter({$0.days.contains("Wednesday")})
-        thu = courses.filter({$0.days.contains("Thursday")})
-        fri = courses.filter({$0.days.contains("Friday")})
-        sat = courses.filter({$0.days.contains("Saturday")})
-        sun = courses.filter({$0.days.contains("Sunday")})
+    public func addCourse(_ course: Class){
+        courses.append(course)
+        sortCourses()
+        print (tue)
+        
+        NotificationCenter.default.post(name: .reload, object: nil)
     }
     
+    @objc func reloadTableData(_ notification: Notification) {
+        classes.delegate = self
+        classes.dataSource = self
+        DispatchQueue.main.async { self.classes.reloadData() }
+    }
+    
+    func sortCourses(){
+        mon = courses.filter({$0.days.index(forKey: "Mon") != nil})
+        tue = courses.filter({$0.days.index(forKey: "Tue") != nil})
+        wed = courses.filter({$0.days.index(forKey: "Wed") != nil})
+        thu = courses.filter({$0.days.index(forKey: "Thu") != nil})
+        fri = courses.filter({$0.days.index(forKey: "Fri") != nil})
+        sat = courses.filter({$0.days.index(forKey: "Sat") != nil})
+        sun = courses.filter({$0.days.index(forKey: "Sun") != nil})
+    }
+    
+}
+
+extension Notification.Name {
+    static let reload = Notification.Name("reload")
 }

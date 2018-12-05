@@ -11,22 +11,18 @@ import UIKit
 class Class{
     
     var name: String
-    var section : Int
-    var startTime: String
-    var endTime: String
+    var type: String
     var semester: String
-    var days: [String]
+    var days: [String: String]
     
-    init? (name: String, section: Int, startTime: String, endTime: String, semester: String, days: [String]){
+    init? (name: String, type: String,  semester: String, days: [String:String]){
         
         if name.isEmpty {
             return nil
         }
         
         self.name = name
-        self.section = section
-        self.startTime = startTime
-        self.endTime = endTime
+        self.type = type
         self.semester = semester
         self.days = days
     }
