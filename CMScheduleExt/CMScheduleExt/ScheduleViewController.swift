@@ -147,7 +147,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func addClass(sender: UIBarButtonItem) {
         
-        let addVC = storyboard!.instantiateViewController(withIdentifier :"AddClass") as! AddClassViewController
+        let addVC = storyboard!.instantiateViewController(withIdentifier :"AddClass") as! ClassSelectorViewController
         self.present(addVC, animated: true)
         
         // reset the location of the card

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddClassViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     
     var data = Array(classData.keys).sorted()

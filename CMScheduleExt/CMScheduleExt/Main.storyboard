@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="1372" y="92.203898050974516"/>
         </scene>
-        <!--Add Class View Controller-->
+        <!--Class Selector View Controller-->
         <scene sceneID="f6n-2A-vZg">
             <objects>
-                <viewController storyboardIdentifier="AddClass" id="qtM-N3-Jc4" customClass="AddClassViewController" customModule="CMScheduleExt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddClass" id="qtM-N3-Jc4" customClass="ClassSelectorViewController" customModule="CMScheduleExt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kUz-yV-vGc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B7051CED218BC12700E54FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7051CEC218BC12700E54FDC /* Main.storyboard */; };
-		B72B0FFF218FEF6F00DB3212 /* AddClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B0FFE218FEF6F00DB3212 /* AddClassViewController.swift */; };
+		B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */; };
 		B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */; };
 		B747DDB021923EEC0055C2B5 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAF21923EEC0055C2B5 /* Class.swift */; };
 		B788F5D521A7B4DE00959255 /* courseData.json in Resources */ = {isa = PBXBuildFile; fileRef = B788F5D421A7B4DE00959255 /* courseData.json */; };
@@ -43,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		B7051CEC218BC12700E54FDC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		B72B0FFE218FEF6F00DB3212 /* AddClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSelectorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B747DDAF21923EEC0055C2B5 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		B788F5D421A7B4DE00959255 /* courseData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = courseData.json; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 				B747DDAF21923EEC0055C2B5 /* Class.swift */,
 				B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */,
-				B72B0FFE218FEF6F00DB3212 /* AddClassViewController.swift */,
+				B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */,
 				B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */,
 				B7051CEC218BC12700E54FDC /* Main.storyboard */,
 				DEF3CE5221815CAD003BD664 /* Assets.xcassets */,
@@ -287,7 +287,7 @@
 				B788F5D921A7B9EB00959255 /* SwiftyJSON.swift in Sources */,
 				DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */,
 				B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */,
-				B72B0FFF218FEF6F00DB3212 /* AddClassViewController.swift in Sources */,
+				B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */,
 				DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */,
 				B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */,
 			);
