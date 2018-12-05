@@ -25,6 +25,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     var searchActive : Bool = false
     var selected: IndexPath = IndexPath.init()
     var selectedScroller: ASHorizontalScrollView? = nil
+    var selectedClass = ""
     var filtered:[String] = []
     
     
@@ -97,7 +98,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let cell = tableView.cellForRow(at: indexPath) as! ClassTableViewCell
         let cellName = cell.courseName.text
-        
+        selectedClass = cell.courseName.text!
         
         if (selectedScroller != nil) {
             selectedScroller?.removeFromSuperview()
@@ -178,6 +179,8 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func sectionSelected(sender: UIButton!) {
         showAlert()
+        print(selectedClass)
+        print(sender.currentTitle)
     }
     
     

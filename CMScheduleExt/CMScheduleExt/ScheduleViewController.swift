@@ -109,6 +109,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
         
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
+        view.addGestureRecognizer(tap)
+        
         print(classData["ACCT 217"]!["periodics"][0]["time-periods"])
         
     }
@@ -127,7 +130,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Blur the background
         view.backgroundColor = .clear
-        let blurEffect = UIBlurEffect.init(style: .light)
+        let blurEffect = UIBlurEffect.init(style: .dark)
         let bluredView = UIVisualEffectView.init(effect: blurEffect)
 
         bluredView.frame = self.view.bounds
@@ -197,6 +200,25 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
                 self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @objc func tapGesture(recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            let location = recognizer.location(in: self.view)
+            
+            if location.y < self.view.frame.minY && onTop {
+                onTop = false
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.height - self.view.frame.height/8, width: self.view.frame.width, height: self.view.frame.height)
+                }
+            }
+            else if location.y < self.view.frame.minY && !onTop {
+                onTop = true
+                UIView.animate(withDuration: 0.3) {
+                    self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
+                }
             }
         }
     }
