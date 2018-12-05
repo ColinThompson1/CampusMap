@@ -6,7 +6,7 @@ import numpy as np
 import re
 import json
 
-debug = True
+debug = False
 
 
 def execute(path_to_img):

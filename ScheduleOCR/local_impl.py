@@ -15,7 +15,6 @@ def run():
     if not os.path.exists(sys.argv[1]):
         print('No image found')
         sys.exit()
-
     print(json.dumps(scheduleocr.execute(sys.argv[1])))
 
 
