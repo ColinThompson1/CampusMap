@@ -1,3 +1,4 @@
 CourseDataProcess/data/
 *.DS_Store*
 ImageProcessingAndOCR/output
+*.xcuserstate
