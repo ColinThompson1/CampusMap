@@ -9,12 +9,9 @@
 import UIKit
 
 class AddClassViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
-    // MARK: Data
-//    var data = ["CPSC 313","CPSC 331","CPSC 575", "ECON 201", "ARKY 201", "ARKY 417", "INTR 501", "BIST 600", "CHIN 317", "MUSI 211", "CHEM 301"]
+
     
     var data = Array(classData.keys).sorted()
-    
     var classSections: [String: Array<String>] = [:]
     
     
@@ -31,19 +28,13 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        var toPrint = [String]()
-        
-        
-//        print(classData[0])
-        
 
         
         
-        // MARK: Loading Class Data
-        for name in data {
-            classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
-        }
+        // Loading Sample Class Data
+        //        for name in data {
+        //            classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
+        //        }
         
         
         // Setup Delegates
@@ -60,7 +51,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     
-    //MARK: - Table view data source
+    //MARK: - TableView Functions
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -74,7 +65,6 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-
         if((!selected.isEmpty) && indexPath.row == selected.row) {
             return 110
         } else {
@@ -93,6 +83,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     return cell;
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -128,6 +119,9 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let currentClassSections = classData[cellName!]!["periodics"]
         
+        
+        //        MARK: UPDATE
+//        Needs to be updated to work with a dictionary instead
         for section in currentClassSections{
             
             let button = UIButton(frame: CGRect.zero)
@@ -166,6 +160,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //    MARK: Actions
 
+    //    MARK: Rename Function
     @IBAction func undweaadosfj(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -180,7 +175,7 @@ class AddClassViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func sectionSelected(sender: UIButton!) {
         showAlert()
         print(selectedClass)
-        print(sender.currentTitle)
+        print(sender.currentTitle!)
     }
     
     
