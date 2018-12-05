@@ -12,7 +12,8 @@ var courses = [Class] ()
 var classData = CourseData().getData()
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-
+    @IBOutlet weak var today: UIButton!
+    
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
@@ -40,18 +41,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var fetchingMore = false
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        /*let picker = UIDatePicker()
-         
-         
-         
-         let todaysEvents:[Class] = [
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!,
-         Class(name: "name", section: 1, startTime: "12:00", endTime: "13:00", semester: "A", days: ["Mon"])!
-         ]
-         
-         events[Date()] = todaysEvents*/
         
         return currentSectionAmount + 1
     }
@@ -94,17 +83,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell //4.
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSampleCourses()
-        mon = courses.filter({$0.days.contains("Monday")})
-        tue = courses.filter({$0.days.contains("Tuesday")})
-        wed = courses.filter({$0.days.contains("Wednesday")})
-        thu = courses.filter({$0.days.contains("Thursday")})
-        fri = courses.filter({$0.days.contains("Friday")})
+        sortCourses()
         classes.delegate = self
         classes.dataSource = self
+        
+        view.bringSubviewToFront(today)
+        today.setTitle("Today", for: .normal)
+        today.isHidden = true
 
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
@@ -228,6 +216,15 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
         let buffer: CGFloat = self.cellBuffer * 90
         
+        let indexPath = classes.indexPathsForVisibleRows
+        let sectionNumber = indexPath?[0].section
+        
+        if (sectionNumber! > 0 && sectionNumber != nil){
+            today.isHidden = false;
+        }else{
+            today.isHidden = true;
+        }
+        
         if offsetY > bottom - buffer{
             if !fetchingMore{
                 classes.reloadData()
@@ -246,6 +243,12 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    @IBAction func todayButtonPressed(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+    }
     func getNextDay(_ date: Date, _ days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
@@ -259,5 +262,14 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return "\(nameOfDay) \(month), \(day)"
     }
     
+    func sortCourses(){
+        mon = courses.filter({$0.days.contains("Monday")})
+        tue = courses.filter({$0.days.contains("Tuesday")})
+        wed = courses.filter({$0.days.contains("Wednesday")})
+        thu = courses.filter({$0.days.contains("Thursday")})
+        fri = courses.filter({$0.days.contains("Friday")})
+        sat = courses.filter({$0.days.contains("Saturday")})
+        sun = courses.filter({$0.days.contains("Sunday")})
+    }
     
 }
