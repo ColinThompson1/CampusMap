@@ -280,7 +280,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func sortCourses(){
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
         let monTemp = courses.filter({$0.days.index(forKey: "Mon") != nil})
