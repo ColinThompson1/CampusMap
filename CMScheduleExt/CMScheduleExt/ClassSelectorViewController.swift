@@ -176,7 +176,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         showAlert()
         print(selectedClass)
         print(sender.currentTitle!)
-        let course4 = Class(name: "CPSC 413", type: "Lecture 1", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
+        let course4 = Class(name: selectedClass, type: sender.currentTitle!, semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
         ScheduleViewController().addCourse(course4!)
         
     }

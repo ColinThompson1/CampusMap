@@ -27,7 +27,10 @@ class Class{
         self.days = days
     }
     
-//    init?() {
-//        <#statements#>
-//    }
+    public func getStartTime(_ day: String) -> String{
+        let time = days[day]
+        let timeSplitter = time?.components(separatedBy: " - ")
+        
+        return (timeSplitter?[0])!
+    }
 }

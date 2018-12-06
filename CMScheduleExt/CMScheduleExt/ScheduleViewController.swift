@@ -159,8 +159,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func loadSampleCourses() {
 
-        let course1 = Class(name: "CPSC 501", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
-        let course2 = Class(name: "CPSC 575", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course1 = Class(name: "CPSC 575", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course2 = Class(name: "CPSC 501", type: "Lecture 1", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
         let course3 = Class(name: "CPSC 413", type: "Lecture 1", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
         
         courses.append(course1!)
@@ -280,13 +280,24 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func sortCourses(){
-        mon = courses.filter({$0.days.index(forKey: "Mon") != nil})
-        tue = courses.filter({$0.days.index(forKey: "Tue") != nil})
-        wed = courses.filter({$0.days.index(forKey: "Wed") != nil})
-        thu = courses.filter({$0.days.index(forKey: "Thu") != nil})
-        fri = courses.filter({$0.days.index(forKey: "Fri") != nil})
-        sat = courses.filter({$0.days.index(forKey: "Sat") != nil})
-        sun = courses.filter({$0.days.index(forKey: "Sun") != nil})
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        let monTemp = courses.filter({$0.days.index(forKey: "Mon") != nil})
+        let tueTemp = courses.filter({$0.days.index(forKey: "Tue") != nil})
+        let wedTemp = courses.filter({$0.days.index(forKey: "Wed") != nil})
+        let thuTemp = courses.filter({$0.days.index(forKey: "Thu") != nil})
+        let friTemp = courses.filter({$0.days.index(forKey: "Fri") != nil})
+        let satTemp = courses.filter({$0.days.index(forKey: "Sat") != nil})
+        let sunTemp = courses.filter({$0.days.index(forKey: "Sun") != nil})
+        
+        mon = monTemp.sorted { dateFormatter.date(from: $0.getStartTime("Mon"))! < dateFormatter.date(from: $1.getStartTime("Mon"))! }
+        tue = tueTemp.sorted { dateFormatter.date(from: $0.getStartTime("Tue"))! < dateFormatter.date(from: $1.getStartTime("Tue"))! }
+        wed = wedTemp.sorted { dateFormatter.date(from: $0.getStartTime("Wed"))! < dateFormatter.date(from: $1.getStartTime("Wed"))! }
+        thu = thuTemp.sorted { dateFormatter.date(from: $0.getStartTime("Thu"))! < dateFormatter.date(from: $1.getStartTime("Thu"))! }
+        fri = friTemp.sorted { dateFormatter.date(from: $0.getStartTime("Fri"))! < dateFormatter.date(from: $1.getStartTime("Fri"))! }
+        sat = satTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sat"))! < dateFormatter.date(from: $1.getStartTime("Sat"))! }
+        sun = sunTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sun"))! < dateFormatter.date(from: $1.getStartTime("Sun"))! }
     }
     
 }
