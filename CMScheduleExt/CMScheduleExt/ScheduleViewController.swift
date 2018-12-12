@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 var courses = [Class] ()
 
@@ -142,6 +143,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
         //loadSampleCourses()
+        if let savedEvents = loadEvents() {
+            courses += savedEvents
+        }
         sortCourses()
         classes.delegate = self
         classes.dataSource = self
@@ -319,6 +323,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     public func addCourse(_ course: Class){
         courses.append(course)
         sortCourses()
+        saveEvents()
         NotificationCenter.default.post(name: .reload, object: nil)
     }
     
@@ -346,6 +351,30 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         fri = friTemp.sorted { dateFormatter.date(from: $0.getStartTime("Fri"))! < dateFormatter.date(from: $1.getStartTime("Fri"))! }
         sat = satTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sat"))! < dateFormatter.date(from: $1.getStartTime("Sat"))! }
         sun = sunTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sun"))! < dateFormatter.date(from: $1.getStartTime("Sun"))! }
+    }
+    
+    private func saveEvents() {
+        do{
+            let data = try NSKeyedArchiver.archivedData(withRootObject: courses, requiringSecureCoding: false)
+            try data.write(to: Class.ArchiveURL)
+            os_log("Classes successfully saved.", log: OSLog.default, type: .debug)
+        }catch{
+            os_log("Failed to save classes...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadEvents() -> [Class]?  {
+        do{
+            let data = try Data(contentsOf: Class.ArchiveURL)
+            
+            os_log("Classes successfully read.", log: OSLog.default, type: .debug)
+            
+            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Class]
+        }catch{
+            os_log("Failed to read classes...", log: OSLog.default, type: .error)
+        }
+        
+        return []
     }
     
 }
