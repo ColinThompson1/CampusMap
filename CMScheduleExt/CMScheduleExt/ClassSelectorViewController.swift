@@ -224,37 +224,22 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         var imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+  
         self.present(imagePicker, animated: true, completion: nil)
-//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-//            print("Button capture")
-//            let imagePicker = UIImagePickerController()
-//            imagePicker.delegate = self
-//            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-//            //imag.mediaTypes = [kUTTypeImage];
-//            imagePicker.allowsEditing = false
-//            self.present(imagePicker, animated: true, completion: nil)
-//        }
+
     }
     
-// @objc func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-//        let selectedImage : UIImage = image
-//
-//        self.dismiss(animated: true, completion: nil)
-//
-////        let addVC = storyboard!.instantiateViewController(withIdentifier :"AddOCRClass") as! OCRCourseViewController
-////        self.present(addVC, animated: true)
-//        print("Hello")
-//    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        print("hello")
         dismiss(animated: true, completion: nil)
         
-                let addVC = storyboard!.instantiateViewController(withIdentifier :"AddOCRClass") as! OCRCourseViewController
-                self.present(addVC, animated: true)
+                print("hello")
+        let addVC = self.storyboard?.instantiateViewController(withIdentifier: "AddOCRClass") as! OCRCourseViewController
+        present(addVC, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
 
     }
     

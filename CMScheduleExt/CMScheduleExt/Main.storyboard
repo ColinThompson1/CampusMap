@@ -157,7 +157,7 @@
         <!--Course View Controller-->
         <scene sceneID="5um-TH-OFb">
             <objects>
-                <viewController storyboardIdentifier="AddOCRClass" id="dgx-xC-2df" customClass="OCRCourseViewController" customModule="CMScheduleExt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddOCRClass" id="dgx-xC-2df" customClass="OCRCourseViewController" customModule="CMScheduleExt" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jkY-Bj-9FK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,6 +172,9 @@
                                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="abc:" destination="dgx-xC-2df" eventType="touchUpInside" id="wqy-09-duF"/>
+                                                </connections>
                                             </button>
                                             <connections>
                                                 <action selector="cancelButtonClicked:" destination="dgx-xC-2df" id="Ajr-HD-c0C"/>

@@ -12,14 +12,15 @@ class OCRCourseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Ran")
 
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func cancelButtonClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-        
+    @IBAction func abc(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
+
     
     /*
     // MARK: - Navigation
