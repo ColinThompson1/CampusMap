@@ -169,7 +169,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     //    MARK: Actions
 
     //    MARK: Rename Function
-    @IBAction func undweaadosfj(_ sender: Any) {
+    @IBAction func backAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     

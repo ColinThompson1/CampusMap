@@ -17,8 +17,17 @@ class OCRCourseViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func abc(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func cancelAction(_ sender: Any) {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Confirm", message: "Are you sure you want to cancel? No classes will be added.", preferredStyle: UIAlertController.Style.alert)
+        
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {_ in self.dismiss(animated: true, completion: nil)}))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
 
     
