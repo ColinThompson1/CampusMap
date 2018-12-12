@@ -18,6 +18,7 @@
 		B788F5DB21A7BB8500959255 /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B788F5DA21A7BB8500959255 /* CourseData.swift */; };
 		B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */; };
 		B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */; };
+		DC2253A821C0BDD700ADAC18 /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */; };
 		DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */; };
 		DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4D21815CAC003BD664 /* ViewController.swift */; };
 		DEF3CE5321815CAD003BD664 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF3CE5221815CAD003BD664 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		B788F5DA21A7BB8500959255 /* CourseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseData.swift; sourceTree = "<group>"; };
 		B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASHorizontalScrollView.swift; sourceTree = "<group>"; };
 		B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
 		DEF3CE4821815CAC003BD664 /* CMScheduleExt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMScheduleExt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF3CE4D21815CAC003BD664 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */,
 				B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */,
 				B7051CEC218BC12700E54FDC /* Main.storyboard */,
+				DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */,
 				DEF3CE5221815CAD003BD664 /* Assets.xcassets */,
 				B788F5D821A7B9EB00959255 /* SwiftyJSON.swift */,
 				B788F5D421A7B4DE00959255 /* courseData.json */,
@@ -291,6 +294,7 @@
 				B747DDB021923EEC0055C2B5 /* Class.swift in Sources */,
 				B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */,
 				B788F5D921A7B9EB00959255 /* SwiftyJSON.swift in Sources */,
+				DC2253A821C0BDD700ADAC18 /* EventsTableViewCell.swift in Sources */,
 				DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */,
 				B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */,
 				01F5307B21C0791C00DE1E0D /* ClassButton.swift in Sources */,

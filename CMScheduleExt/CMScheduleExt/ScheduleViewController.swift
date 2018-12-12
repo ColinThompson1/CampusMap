@@ -70,26 +70,50 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             events[getNextDay(date, section)] = sun
         }
         let some : [Class] = events[getNextDay(date, section)]!
-        return (some.count)
+        print(some.count)
+        if (some.count > 0){
+            return (some.count)
+        }else{
+            return 1;
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
+        let cellIdentifier = "ClassesViewCell"
         
-        var name :String = ""
-        name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
+        guard let cell = classes.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EventsTableViewCell else{
+            fatalError("The dequed cell is not an instance of EventsTableViewCell")
+        }
         
-        let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
-        
-        cell.textLabel?.text = name + " | " + type //3.
-        
-        return cell //4.
+        let listOfEvents : [Class] = events[getNextDay(date, indexPath.section)]!
+        if (listOfEvents.count == 0){
+            cell.contentView.backgroundColor = UIColor.gray
+            cell.startTime.text = ""
+            cell.endTime.text = ""
+            cell.eventName.text = "No events here"
+            return cell
+        }else{
+            cell.contentView.backgroundColor = UIColor.white
+            let currentEvent = listOfEvents[indexPath.row]
+            
+            var name :String = ""
+            name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
+            
+            let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
+            dateFormatter.dateFormat = "EEE"
+            cell.startTime.text = currentEvent.getStartTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
+            cell.endTime.text = currentEvent.getEndTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
+            
+            cell.eventName.text = name + " | " + type
+            
+            return cell
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
-        loadSampleCourses()
+        //loadSampleCourses()
         sortCourses()
         classes.delegate = self
         classes.dataSource = self
