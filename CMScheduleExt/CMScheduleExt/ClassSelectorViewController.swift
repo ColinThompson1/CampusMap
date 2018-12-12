@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
 
     
     var data = Array(classData.keys).sorted()
@@ -24,6 +24,12 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     var selectedScroller: ASHorizontalScrollView? = nil
     var selectedClass = ""
     var filtered:[String] = []
+    
+    static let shared = ClassSelectorViewController()
+    fileprivate var currentVC: UIViewController!
+    
+    //MARK: Internal Properties
+    var imagePickedBlock: ((UIImage) -> Void)?
     
     
     override func viewDidLoad() {
@@ -218,6 +224,36 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     }
     */
     
+    //    MARK: Image Picker
+    
+    @IBAction func ImportPhotoButton(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+            print("Button capture")
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+            //imag.mediaTypes = [kUTTypeImage];
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
+        let selectedImage : UIImage = image
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+//    func photoLibrary()
+//    {
+//
+//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+//            let myPickerController = UIImagePickerController()
+//            myPickerController.delegate = self;
+//            myPickerController.sourceType = .photoLibrary
+//            currentVC.present(myPickerController, animated: true, completion: nil)
+//        }
+//    }
+    
     //    MARK: Searchbar
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -350,3 +386,4 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
 //
 //        // 5
 //        self.present(optionMenu, animated: true, completion: nil)
+
