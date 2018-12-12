@@ -7,7 +7,25 @@
 		<key>CMScheduleExt.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>4</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>DEF3CE4721815CAC003BD664</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DEF3CE5B21815CAD003BD664</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DEF3CE6621815CAD003BD664</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
