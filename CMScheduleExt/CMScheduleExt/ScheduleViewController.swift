@@ -58,7 +58,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             events[getNextDay(date, section)] = mon
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Tuesday"){
             events[getNextDay(date, section)] = tue
-            print (tue.count)
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Wednesday"){
             events[getNextDay(date, section)] = wed
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Thursday"){
@@ -77,10 +76,12 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
         
-        var text :String = ""
-        text = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
+        var name :String = ""
+        name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
         
-        cell.textLabel?.text = text //3.
+        let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
+        
+        cell.textLabel?.text = name + " | " + type //3.
         
         return cell //4.
     }
@@ -102,9 +103,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
         view.addGestureRecognizer(tap)
-        
-        print(classData["ACCT 217"]!["periodics"][0]["time-periods"])
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,8 +118,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         // Blur the background
-        view.backgroundColor = .clear
-        let blurEffect = UIBlurEffect.init(style: .dark)
+        //view.backgroundColor = .clear
+        let blurEffect = UIBlurEffect.init(style: .light)
         let bluredView = UIVisualEffectView.init(effect: blurEffect)
 
         bluredView.frame = self.view.bounds
@@ -159,9 +157,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func loadSampleCourses() {
 
-        let course1 = Class(name: "CPSC 575", type: "Lecture 1", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
-        let course2 = Class(name: "CPSC 501", type: "Lecture 1", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
-        let course3 = Class(name: "CPSC 413", type: "Lecture 1", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
+        let course1 = Class(name: "CPSC 575", type: "Lecture 01", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course2 = Class(name: "CPSC 501", type: "Lecture 01", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
+        let course3 = Class(name: "CPSC 413", type: "Lecture 01", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
         
         courses.append(course1!)
         courses.append(course2!)
@@ -268,7 +266,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     public func addCourse(_ course: Class){
         courses.append(course)
         sortCourses()
-        print (tue)
         
         NotificationCenter.default.post(name: .reload, object: nil)
     }

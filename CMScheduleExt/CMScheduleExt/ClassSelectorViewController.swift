@@ -124,13 +124,20 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
 //        Needs to be updated to work with a dictionary instead
         for section in currentClassSections{
             
-            let button = UIButton(frame: CGRect.zero)
+            let button = ClassButton(frame: CGRect.zero)
             button.setTitle("\(section.1["type"]) \(section.1["name"])", for: .normal)
+            
+            // pass this to the button press handler
+            button.type = "\(section.1["type"])"
+            button.section = "\(section.1["name"])"
+            button.periods = section.1["time-periods"]
+            
             let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
             button.backgroundColor = backColor
             button.setTitleColor(UIColor.black, for: .normal)
             button.layer.cornerRadius = 5
             button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Thin" , size: 17)
+            button.sizeToFit()
             button.addTarget(self, action: #selector(sectionSelected), for: .touchUpInside)
             
             
@@ -166,19 +173,38 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
 
-    func showAlert() {
-        let alert = UIAlertController(title: "Added Succesfully", message: "", preferredStyle: .alert)
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "Added Successfully", message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
         Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
     }
     
-    @objc func sectionSelected(sender: UIButton!) {
-        showAlert()
+    func showFailAlert() {
+        let alert = UIAlertController(title: "No Times for this Section", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    @objc func sectionSelected(sender: ClassButton!) {
         print(selectedClass)
         print(sender.currentTitle!)
-        let course4 = Class(name: selectedClass, type: sender.currentTitle!, semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
-        ScheduleViewController().addCourse(course4!)
         
+        // get all the days and times of the class
+        var days = [String:String]()
+        
+        let timePeriods = sender.periods
+        for period in timePeriods {
+            days["\(period.1["day"])"] = "\(period.1["time"])"
+        }
+        
+        if timePeriods.isEmpty {
+            showFailAlert()
+        }
+        else {
+            let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: "Fall", days: days)
+            ScheduleViewController().addCourse(aCourse!)
+            showSuccessAlert()
+        }
     }
     
     

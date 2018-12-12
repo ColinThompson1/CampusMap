@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01F5307B21C0791C00DE1E0D /* ClassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5307A21C0791C00DE1E0D /* ClassButton.swift */; };
 		B7051CED218BC12700E54FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7051CEC218BC12700E54FDC /* Main.storyboard */; };
 		B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */; };
 		B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01F5307A21C0791C00DE1E0D /* ClassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassButton.swift; sourceTree = "<group>"; };
 		B7051CEC218BC12700E54FDC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSelectorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */,
 				DEF3CE4D21815CAC003BD664 /* ViewController.swift */,
+				01F5307A21C0791C00DE1E0D /* ClassButton.swift */,
 				B788F5DA21A7BB8500959255 /* CourseData.swift */,
 				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 				B747DDAF21923EEC0055C2B5 /* Class.swift */,
@@ -287,6 +290,7 @@
 				B788F5D921A7B9EB00959255 /* SwiftyJSON.swift in Sources */,
 				DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */,
 				B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */,
+				01F5307B21C0791C00DE1E0D /* ClassButton.swift in Sources */,
 				B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */,
 				DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */,
 				B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */,
