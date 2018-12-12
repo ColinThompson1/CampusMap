@@ -16,7 +16,7 @@ def scrape_data():
     if not os.path.exists(os.path.dirname(OUTPUT_FOLDER)):
         try:
             os.makedirs(os.path.dirname(OUTPUT_FOLDER))
-        except OSError as exc: # Guard against race condition
+        except OSError as exc:  # Guard against race condition
             if exc.errno != errno.EEXIST:
                 raise
 
@@ -66,24 +66,24 @@ def parse_data(pathtoinput, semester):
     tree = ET.parse(pathtoinput)
     root = tree.getroot()
 
-    courses = []
+    courses = {}
 
     for course in root:
         course_number = course.get('number')
         course_subject = course.get('subject')
         course_desc = course.find('description').text
-        periodics = []
+        periodics = {}
 
-        courses.append({
+        courses[course_subject + ' ' + course_number] = {
             'number': course_number,
             'subject': course_subject,
             'description': course_desc,
             'periodics': periodics
-        })
+        }
 
         # Get each period
         for periodic in course.findall('periodic'):
-            perioidic_name = periodic.get('name')
+            periodic_name = periodic.get('name')
             periodic_type = periodic.get('type')
             periodic_group = periodic.get('group')
             periodic_topic = periodic.find('topic')
@@ -91,15 +91,15 @@ def parse_data(pathtoinput, semester):
             periodic_instructor = periodic.find('instructor')
             time_periods = []
 
-            periodics.append({
-                'name': perioidic_name,
+            periodics[periodic_type + ' ' + periodic_name] = {
+                'name': periodic_name,
                 'type': periodic_type,
                 'group': periodic_group,
                 'topic': periodic_topic or '',
                 'room': periodic_room or '',
                 'instructor': periodic_instructor or '',
                 'time-periods': time_periods
-            })
+            }
 
             # Get the periodic time
             for time_period in periodic.findall('time'):

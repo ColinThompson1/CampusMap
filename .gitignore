@@ -2,3 +2,4 @@ DataService/public/course-data/*
 *.DS_Store*
 ImageProcessingAndOCR/output
 *.iml
+ScheduleOCR/schedules/*
