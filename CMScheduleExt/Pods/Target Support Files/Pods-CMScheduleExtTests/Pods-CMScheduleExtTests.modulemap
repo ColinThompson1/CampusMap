@@ -1,0 +1,6 @@
+framework module Pods_CMScheduleExtTests {
+  umbrella header "Pods-CMScheduleExtTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

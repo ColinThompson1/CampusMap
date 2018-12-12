@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B7EEBB05EDF3C5EAD425EAC /* Pods_CMScheduleExtUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 137B0B18A7047681EA6C0B23 /* Pods_CMScheduleExtUITests.framework */; };
+		8DD581D91163218614477D80 /* Pods_CMScheduleExtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA6802269C5A344E61F0C79 /* Pods_CMScheduleExtTests.framework */; };
+		8F0C6701B2A6B7D9140A8850 /* Pods_CMScheduleExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FB6C4C39904F081B6A4C9A /* Pods_CMScheduleExt.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B7051CED218BC12700E54FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7051CEC218BC12700E54FDC /* Main.storyboard */; };
 		B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */; };
 		B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */; };
@@ -16,6 +19,18 @@
 		B788F5DB21A7BB8500959255 /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B788F5DA21A7BB8500959255 /* CourseData.swift */; };
 		B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */; };
 		B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */; };
+		DE8F9AB221C1861A00CE03F2 /* OCRCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F9AB121C1861A00CE03F2 /* OCRCourse.swift */; };
+		DE8F9AB621C1891A00CE03F2 /* test_schedule.PNG in Resources */ = {isa = PBXBuildFile; fileRef = DE8F9AB521C1891A00CE03F2 /* test_schedule.PNG */; };
+		DE8F9AB821C1A6BB00CE03F2 /* CourseDataStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F9AB721C1A6BA00CE03F2 /* CourseDataStoreTest.swift */; };
+		DEC7C2FC21C0885B00947488 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C2FB21C0885B00947488 /* RestService.swift */; };
+		DEC7C2FE21C088D100947488 /* CourseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C2FD21C088D100947488 /* CourseDataSource.swift */; };
+		DEC7C31021C08A7E00947488 /* RestServiceIT.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C30F21C08A7E00947488 /* RestServiceIT.swift */; };
+		DEC7C31E21C0EF4200947488 /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C31D21C0EF4200947488 /* Semester.swift */; };
+		DEC7C32021C0EF4F00947488 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C31F21C0EF4F00947488 /* Course.swift */; };
+		DEC7C32221C0EF5E00947488 /* Periodic.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C32121C0EF5E00947488 /* Periodic.swift */; };
+		DEC7C32421C0EF7C00947488 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C32321C0EF7C00947488 /* TimePeriod.swift */; };
+		DEC7C32721C0F0E100947488 /* ClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C32621C0F0E100947488 /* ClassType.swift */; };
+		DEC7C32921C0F11D00947488 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7C32821C0F11D00947488 /* Day.swift */; };
 		DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */; };
 		DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF3CE4D21815CAC003BD664 /* ViewController.swift */; };
 		DEF3CE5321815CAD003BD664 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEF3CE5221815CAD003BD664 /* Assets.xcassets */; };
@@ -42,6 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		137B0B18A7047681EA6C0B23 /* Pods_CMScheduleExtUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CMScheduleExtUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17D493447336E06C80127CC6 /* Pods-CMScheduleExtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExtTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExtTests/Pods-CMScheduleExtTests.release.xcconfig"; sourceTree = "<group>"; };
+		2AA6802269C5A344E61F0C79 /* Pods_CMScheduleExtTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CMScheduleExtTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3097BC9EFEBF82F2172BADB3 /* Pods-CMScheduleExt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExt.release.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExt/Pods-CMScheduleExt.release.xcconfig"; sourceTree = "<group>"; };
+		6B10283250246E4E3B733CFC /* Pods-CMScheduleExt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExt/Pods-CMScheduleExt.debug.xcconfig"; sourceTree = "<group>"; };
+		700D55E97915CBCF3FBFCAD2 /* Pods-CMScheduleExtUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExtUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExtUITests/Pods-CMScheduleExtUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B7051CEC218BC12700E54FDC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSelectorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +72,20 @@
 		B788F5DA21A7BB8500959255 /* CourseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseData.swift; sourceTree = "<group>"; };
 		B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASHorizontalScrollView.swift; sourceTree = "<group>"; };
 		B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		B8FB6C4C39904F081B6A4C9A /* Pods_CMScheduleExt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CMScheduleExt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8ECC5251898B9ADC24004D6 /* Pods-CMScheduleExtTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExtTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExtTests/Pods-CMScheduleExtTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DE8F9AB121C1861A00CE03F2 /* OCRCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRCourse.swift; sourceTree = "<group>"; };
+		DE8F9AB521C1891A00CE03F2 /* test_schedule.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_schedule.PNG; sourceTree = "<group>"; };
+		DE8F9AB721C1A6BA00CE03F2 /* CourseDataStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDataStoreTest.swift; sourceTree = "<group>"; };
+		DEC7C2FB21C0885B00947488 /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
+		DEC7C2FD21C088D100947488 /* CourseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDataSource.swift; sourceTree = "<group>"; };
+		DEC7C30F21C08A7E00947488 /* RestServiceIT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceIT.swift; sourceTree = "<group>"; };
+		DEC7C31D21C0EF4200947488 /* Semester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
+		DEC7C31F21C0EF4F00947488 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		DEC7C32121C0EF5E00947488 /* Periodic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Periodic.swift; sourceTree = "<group>"; };
+		DEC7C32321C0EF7C00947488 /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
+		DEC7C32621C0F0E100947488 /* ClassType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassType.swift; sourceTree = "<group>"; };
+		DEC7C32821C0F11D00947488 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		DEF3CE4821815CAC003BD664 /* CMScheduleExt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMScheduleExt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEF3CE4D21815CAC003BD664 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +98,7 @@
 		DEF3CE6721815CAD003BD664 /* CMScheduleExtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMScheduleExtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF3CE6B21815CAD003BD664 /* CMScheduleExtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMScheduleExtUITests.swift; sourceTree = "<group>"; };
 		DEF3CE6D21815CAD003BD664 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE62F0994484A38A2729EE5D /* Pods-CMScheduleExtUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExtUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExtUITests/Pods-CMScheduleExtUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F0C6701B2A6B7D9140A8850 /* Pods_CMScheduleExt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DD581D91163218614477D80 /* Pods_CMScheduleExtTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,19 +122,68 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7EEBB05EDF3C5EAD425EAC /* Pods_CMScheduleExtUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		451D74E5FD0B770F1870C235 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6B10283250246E4E3B733CFC /* Pods-CMScheduleExt.debug.xcconfig */,
+				3097BC9EFEBF82F2172BADB3 /* Pods-CMScheduleExt.release.xcconfig */,
+				D8ECC5251898B9ADC24004D6 /* Pods-CMScheduleExtTests.debug.xcconfig */,
+				17D493447336E06C80127CC6 /* Pods-CMScheduleExtTests.release.xcconfig */,
+				FE62F0994484A38A2729EE5D /* Pods-CMScheduleExtUITests.debug.xcconfig */,
+				700D55E97915CBCF3FBFCAD2 /* Pods-CMScheduleExtUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		977CC2C7C4E9819F1F5F02C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8FB6C4C39904F081B6A4C9A /* Pods_CMScheduleExt.framework */,
+				2AA6802269C5A344E61F0C79 /* Pods_CMScheduleExtTests.framework */,
+				137B0B18A7047681EA6C0B23 /* Pods_CMScheduleExtUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEC7C31C21C0EEE300947488 /* POSO */ = {
+			isa = PBXGroup;
+			children = (
+				DEC7C32521C0F0B400947488 /* Enum */,
+				DEC7C31D21C0EF4200947488 /* Semester.swift */,
+				DEC7C31F21C0EF4F00947488 /* Course.swift */,
+				DEC7C32121C0EF5E00947488 /* Periodic.swift */,
+				DEC7C32321C0EF7C00947488 /* TimePeriod.swift */,
+				DE8F9AB121C1861A00CE03F2 /* OCRCourse.swift */,
+			);
+			path = POSO;
+			sourceTree = "<group>";
+		};
+		DEC7C32521C0F0B400947488 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				DEC7C32621C0F0E100947488 /* ClassType.swift */,
+				DEC7C32821C0F11D00947488 /* Day.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		DEF3CE3F21815CAC003BD664 = {
 			isa = PBXGroup;
 			children = (
+				DE8F9AB521C1891A00CE03F2 /* test_schedule.PNG */,
 				DEF3CE4A21815CAC003BD664 /* CMScheduleExt */,
 				DEF3CE5F21815CAD003BD664 /* CMScheduleExtTests */,
 				DEF3CE6A21815CAD003BD664 /* CMScheduleExtUITests */,
 				DEF3CE4921815CAC003BD664 /* Products */,
+				451D74E5FD0B770F1870C235 /* Pods */,
+				977CC2C7C4E9819F1F5F02C8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +200,7 @@
 		DEF3CE4A21815CAC003BD664 /* CMScheduleExt */ = {
 			isa = PBXGroup;
 			children = (
+				DEC7C31C21C0EEE300947488 /* POSO */,
 				DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */,
 				DEF3CE4D21815CAC003BD664 /* ViewController.swift */,
 				B788F5DA21A7BB8500959255 /* CourseData.swift */,
@@ -127,6 +215,8 @@
 				B788F5D421A7B4DE00959255 /* courseData.json */,
 				DEF3CE5421815CAD003BD664 /* LaunchScreen.storyboard */,
 				DEF3CE5721815CAD003BD664 /* Info.plist */,
+				DEC7C2FB21C0885B00947488 /* RestService.swift */,
+				DEC7C2FD21C088D100947488 /* CourseDataSource.swift */,
 			);
 			path = CMScheduleExt;
 			sourceTree = "<group>";
@@ -134,6 +224,8 @@
 		DEF3CE5F21815CAD003BD664 /* CMScheduleExtTests */ = {
 			isa = PBXGroup;
 			children = (
+				DE8F9AB721C1A6BA00CE03F2 /* CourseDataStoreTest.swift */,
+				DEC7C30F21C08A7E00947488 /* RestServiceIT.swift */,
 				DEF3CE6021815CAD003BD664 /* CMScheduleExtTests.swift */,
 				DEF3CE6221815CAD003BD664 /* Info.plist */,
 			);
@@ -156,9 +248,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF3CE7021815CAD003BD664 /* Build configuration list for PBXNativeTarget "CMScheduleExt" */;
 			buildPhases = (
+				CB1E08B2F428F515E244366A /* [CP] Check Pods Manifest.lock */,
 				DEF3CE4421815CAC003BD664 /* Sources */,
 				DEF3CE4521815CAC003BD664 /* Frameworks */,
 				DEF3CE4621815CAC003BD664 /* Resources */,
+				55ABE661E2EE52E1B2C0EC6E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -173,6 +267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF3CE7321815CAD003BD664 /* Build configuration list for PBXNativeTarget "CMScheduleExtTests" */;
 			buildPhases = (
+				C79D721CDCBBCDDD0906F939 /* [CP] Check Pods Manifest.lock */,
 				DEF3CE5821815CAD003BD664 /* Sources */,
 				DEF3CE5921815CAD003BD664 /* Frameworks */,
 				DEF3CE5A21815CAD003BD664 /* Resources */,
@@ -191,6 +286,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEF3CE7621815CAD003BD664 /* Build configuration list for PBXNativeTarget "CMScheduleExtUITests" */;
 			buildPhases = (
+				8BCBEEC1BE680470AFFB9721 /* [CP] Check Pods Manifest.lock */,
 				DEF3CE6321815CAD003BD664 /* Sources */,
 				DEF3CE6421815CAD003BD664 /* Frameworks */,
 				DEF3CE6521815CAD003BD664 /* Resources */,
@@ -264,6 +360,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE8F9AB621C1891A00CE03F2 /* test_schedule.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,20 +373,104 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		55ABE661E2EE52E1B2C0EC6E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CMScheduleExt/Pods-CMScheduleExt-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CMScheduleExt/Pods-CMScheduleExt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BCBEEC1BE680470AFFB9721 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CMScheduleExtUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C79D721CDCBBCDDD0906F939 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CMScheduleExtTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB1E08B2F428F515E244366A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CMScheduleExt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DEF3CE4421815CAC003BD664 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEC7C32021C0EF4F00947488 /* Course.swift in Sources */,
 				B788F5DB21A7BB8500959255 /* CourseData.swift in Sources */,
+				DEC7C32721C0F0E100947488 /* ClassType.swift in Sources */,
+				DEC7C32221C0EF5E00947488 /* Periodic.swift in Sources */,
+				DEC7C31E21C0EF4200947488 /* Semester.swift in Sources */,
 				B747DDB021923EEC0055C2B5 /* Class.swift in Sources */,
 				B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */,
+				DEC7C2FE21C088D100947488 /* CourseDataSource.swift in Sources */,
 				B788F5D921A7B9EB00959255 /* SwiftyJSON.swift in Sources */,
 				DEF3CE4E21815CAC003BD664 /* ViewController.swift in Sources */,
 				B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */,
+				DEC7C32921C0F11D00947488 /* Day.swift in Sources */,
 				B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */,
+				DE8F9AB221C1861A00CE03F2 /* OCRCourse.swift in Sources */,
+				DEC7C32421C0EF7C00947488 /* TimePeriod.swift in Sources */,
 				DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */,
 				B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */,
+				DEC7C2FC21C0885B00947488 /* RestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +478,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEC7C31021C08A7E00947488 /* RestServiceIT.swift in Sources */,
 				DEF3CE6121815CAD003BD664 /* CMScheduleExtTests.swift in Sources */,
+				DE8F9AB821C1A6BB00CE03F2 /* CourseDataStoreTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +637,7 @@
 		};
 		DEF3CE7121815CAD003BD664 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B10283250246E4E3B733CFC /* Pods-CMScheduleExt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -472,6 +656,7 @@
 		};
 		DEF3CE7221815CAD003BD664 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3097BC9EFEBF82F2172BADB3 /* Pods-CMScheduleExt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -490,6 +675,7 @@
 		};
 		DEF3CE7421815CAD003BD664 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8ECC5251898B9ADC24004D6 /* Pods-CMScheduleExtTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -511,6 +697,7 @@
 		};
 		DEF3CE7521815CAD003BD664 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17D493447336E06C80127CC6 /* Pods-CMScheduleExtTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -532,6 +719,7 @@
 		};
 		DEF3CE7721815CAD003BD664 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE62F0994484A38A2729EE5D /* Pods-CMScheduleExtUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -552,6 +740,7 @@
 		};
 		DEF3CE7821815CAD003BD664 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 700D55E97915CBCF3FBFCAD2 /* Pods-CMScheduleExtUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
