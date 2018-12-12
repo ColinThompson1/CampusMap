@@ -9,7 +9,16 @@
 import UIKit
 
 var courses = [Class] ()
+
+var mon = [Class]()
+var tue = [Class]()
+var wed = [Class]()
+var thu = [Class]()
+var fri = [Class]()
+var sat = [Class]()
+var sun = [Class]()
 var classData = CourseData().getData()
+//classData["CPSC 313"]!["perdiodics"]!["Lecture 1"]!
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var today: UIButton!
@@ -19,14 +28,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var classes: UITableView!
     private var data: [String] = []
 
-    
-    var mon = [Class]()
-    var tue = [Class]()
-    var wed = [Class]()
-    var thu = [Class]()
-    var fri = [Class]()
-    var sat = [Class]()
-    var sun = [Class]()
+
 
     var events:[Date:[Class]] = [:]
     
@@ -52,7 +54,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
-        print(dateFormatter.string(from: getNextDay(date, section)))
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
             events[getNextDay(date, section)] = mon
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Tuesday"){
@@ -75,16 +76,19 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
         
-        var text :String = ""
-        text = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
+        var name :String = ""
+        name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
         
-        cell.textLabel?.text = text //3.
+        let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
+        
+        cell.textLabel?.text = name + " | " + type //3.
         
         return cell //4.
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
         loadSampleCourses()
         sortCourses()
         classes.delegate = self
@@ -99,9 +103,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
         view.addGestureRecognizer(tap)
-        
-        print(classData["ACCT 217"]!["periodics"][0]["time-periods"])
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -117,8 +118,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         // Blur the background
-        view.backgroundColor = .clear
-        let blurEffect = UIBlurEffect.init(style: .dark)
+        //view.backgroundColor = .clear
+        let blurEffect = UIBlurEffect.init(style: .light)
         let bluredView = UIVisualEffectView.init(effect: blurEffect)
 
         bluredView.frame = self.view.bounds
@@ -156,9 +157,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func loadSampleCourses() {
 
-        let course1 = Class(name: "CPSC 501", section: 1, startTime: "09:00", endTime: "09:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-        let course2 = Class(name: "CPSC 575", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Monday", "Wednesday", "Friday"])
-        let course3 = Class(name: "CPSC 413", section: 1, startTime: "10:00", endTime: "10:50", semester: "Fall", days: ["Tuesday", "Thursday"])
+        let course1 = Class(name: "CPSC 575", type: "Lecture 01", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
+        let course2 = Class(name: "CPSC 501", type: "Lecture 01", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
+        let course3 = Class(name: "CPSC 413", type: "Lecture 01", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
         
         courses.append(course1!)
         courses.append(course2!)
@@ -262,14 +263,41 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return "\(nameOfDay) \(month), \(day)"
     }
     
-    func sortCourses(){
-        mon = courses.filter({$0.days.contains("Monday")})
-        tue = courses.filter({$0.days.contains("Tuesday")})
-        wed = courses.filter({$0.days.contains("Wednesday")})
-        thu = courses.filter({$0.days.contains("Thursday")})
-        fri = courses.filter({$0.days.contains("Friday")})
-        sat = courses.filter({$0.days.contains("Saturday")})
-        sun = courses.filter({$0.days.contains("Sunday")})
+    public func addCourse(_ course: Class){
+        courses.append(course)
+        sortCourses()
+        
+        NotificationCenter.default.post(name: .reload, object: nil)
     }
     
+    @objc func reloadTableData(_ notification: Notification) {
+        classes.delegate = self
+        classes.dataSource = self
+        DispatchQueue.main.async { self.classes.reloadData() }
+    }
+    
+    func sortCourses(){
+        dateFormatter.dateFormat = "HH:mm"
+        
+        let monTemp = courses.filter({$0.days.index(forKey: "Mon") != nil})
+        let tueTemp = courses.filter({$0.days.index(forKey: "Tue") != nil})
+        let wedTemp = courses.filter({$0.days.index(forKey: "Wed") != nil})
+        let thuTemp = courses.filter({$0.days.index(forKey: "Thu") != nil})
+        let friTemp = courses.filter({$0.days.index(forKey: "Fri") != nil})
+        let satTemp = courses.filter({$0.days.index(forKey: "Sat") != nil})
+        let sunTemp = courses.filter({$0.days.index(forKey: "Sun") != nil})
+        
+        mon = monTemp.sorted { dateFormatter.date(from: $0.getStartTime("Mon"))! < dateFormatter.date(from: $1.getStartTime("Mon"))! }
+        tue = tueTemp.sorted { dateFormatter.date(from: $0.getStartTime("Tue"))! < dateFormatter.date(from: $1.getStartTime("Tue"))! }
+        wed = wedTemp.sorted { dateFormatter.date(from: $0.getStartTime("Wed"))! < dateFormatter.date(from: $1.getStartTime("Wed"))! }
+        thu = thuTemp.sorted { dateFormatter.date(from: $0.getStartTime("Thu"))! < dateFormatter.date(from: $1.getStartTime("Thu"))! }
+        fri = friTemp.sorted { dateFormatter.date(from: $0.getStartTime("Fri"))! < dateFormatter.date(from: $1.getStartTime("Fri"))! }
+        sat = satTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sat"))! < dateFormatter.date(from: $1.getStartTime("Sat"))! }
+        sun = sunTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sun"))! < dateFormatter.date(from: $1.getStartTime("Sun"))! }
+    }
+    
+}
+
+extension Notification.Name {
+    static let reload = Notification.Name("reload")
 }
