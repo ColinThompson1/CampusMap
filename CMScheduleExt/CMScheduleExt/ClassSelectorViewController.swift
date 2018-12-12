@@ -29,18 +29,12 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     fileprivate var currentVC: UIViewController!
     
     //MARK: Internal Properties
-    var imagePickedBlock: ((UIImage) -> Void)?
+//    var imagePickedBlock: ((UIImage) -> Void)?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        // Loading Sample Class Data
-        //        for name in data {
-        //            classSections[name] = ["LEC 1: MWF 12:00 - 12:50", "Lecture 2", "Lecture 3", "Lab 1", "Lab 2"]
-        //        }
         
         
         // Setup Delegates
@@ -84,7 +78,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
 
-        if(searchActive){
+        if(searchActive || !selected.isEmpty){
             cell.courseName.text = filtered[indexPath.row]
         }
     return cell;
@@ -227,22 +221,53 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     //    MARK: Image Picker
     
     @IBAction func ImportPhotoButton(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            print("Button capture")
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
-            //imag.mediaTypes = [kUTTypeImage];
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+        var imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        self.present(imagePicker, animated: true, completion: nil)
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+//            print("Button capture")
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary;
+//            //imag.mediaTypes = [kUTTypeImage];
+//            imagePicker.allowsEditing = false
+//            self.present(imagePicker, animated: true, completion: nil)
+//        }
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-        let selectedImage : UIImage = image
+// @objc func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
+//        let selectedImage : UIImage = image
+//
+//        self.dismiss(animated: true, completion: nil)
+//
+////        let addVC = storyboard!.instantiateViewController(withIdentifier :"AddOCRClass") as! OCRCourseViewController
+////        self.present(addVC, animated: true)
+//        print("Hello")
+//    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        print("hello")
+        dismiss(animated: true, completion: nil)
         
-        self.dismiss(animated: true, completion: nil)
+                let addVC = storyboard!.instantiateViewController(withIdentifier :"AddOCRClass") as! OCRCourseViewController
+                self.present(addVC, animated: true)
+
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        dismiss(animated: true, completion: nil)
+        print("hello2")
+    }
+    
+    
+    
+
+    
 //    func photoLibrary()
 //    {
 //
@@ -296,6 +321,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         else {
             filtered = []
         }
+        
         if (selectedScroller != nil) {
             selectedScroller?.removeFromSuperview()
             selected.row = -1
