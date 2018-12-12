@@ -15,11 +15,13 @@ class ClassButton: UIButton {
     var type: String
     var section: String
     var periods: JSON
+    var room: String
     
     override init(frame: CGRect) {
         self.type = ""
         self.section = ""
         self.periods = ""
+        self.room = ""
         super.init(frame: frame)
     }
     
@@ -27,6 +29,7 @@ class ClassButton: UIButton {
         self.type = ""
         self.section = ""
         self.periods = ""
+        self.room = ""
         super.init(coder: aDecoder)
     }
 }

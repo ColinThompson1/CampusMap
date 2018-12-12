@@ -179,7 +179,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         onTop = false
     }
     
-    private func loadSampleCourses() {
+    /*private func loadSampleCourses() {
 
         let course1 = Class(name: "CPSC 575", type: "Lecture 01", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
         let course2 = Class(name: "CPSC 501", type: "Lecture 01", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
@@ -188,7 +188,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         courses.append(course1!)
         courses.append(course2!)
         courses.append(course3!)
-    }
+    }*/
 
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let velocity = recognizer.velocity(in: self.view).y
