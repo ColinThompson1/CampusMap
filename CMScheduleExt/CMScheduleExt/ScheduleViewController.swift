@@ -39,6 +39,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     let date = Date()
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
+    let dateFormatter2 = DateFormatter()
     
     var fetchingMore = false
     
@@ -55,22 +56,49 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
-            events[getNextDay(date, section)] = mon
+            if (mon.count > 0){
+                events[getNextDay(date, section)] = mon.filter({$0.getStartDate("Mon") <= getNextDay(date, section) && $0.getEndDate("Mon") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = mon
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Tuesday"){
-            events[getNextDay(date, section)] = tue
+            if (tue.count > 0){
+                events[getNextDay(date, section)] = tue.filter({$0.getStartDate("Tue") <= getNextDay(date, section) && $0.getEndDate("Tue") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = tue
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Wednesday"){
-            events[getNextDay(date, section)] = wed
+            if (wed.count > 0){
+                events[getNextDay(date, section)] = wed.filter({$0.getStartDate("Wed") <= getNextDay(date, section) && $0.getEndDate("Wed") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = wed
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Thursday"){
-            events[getNextDay(date, section)] = thu
+            if (thu.count > 0){
+                events[getNextDay(date, section)] = thu.filter({$0.getStartDate("Thu") <= getNextDay(date, section) && $0.getEndDate("Thu") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = thu
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Friday"){
-            events[getNextDay(date, section)] = fri
+            if (fri.count > 0){
+                events[getNextDay(date, section)] = fri.filter({$0.getStartDate("Fri") <= getNextDay(date, section) && $0.getEndDate("Fri") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = fri
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Saturday"){
-            events[getNextDay(date, section)] = sat
+            if (sat.count > 0){
+                events[getNextDay(date, section)] = sat.filter({$0.getStartDate("Sat") <= getNextDay(date, section) && $0.getEndDate("Sat") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = sat
+            }
         }else if ((dateFormatter.string(from: getNextDay(date, section))) == "Sunday"){
-            events[getNextDay(date, section)] = sun
+            if (sun.count > 0){
+                events[getNextDay(date, section)] = sun.filter({$0.getStartDate("Sun") <= getNextDay(date, section) && $0.getEndDate("Sun") >= getNextDay(date, section)})
+            }else{
+                events[getNextDay(date, section)] = sun
+            }
         }
         let some : [Class] = events[getNextDay(date, section)]!
-        print(some.count)
         if (some.count > 0){
             return (some.count)
         }else{
@@ -290,7 +318,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     public func addCourse(_ course: Class){
         courses.append(course)
         sortCourses()
-        
         NotificationCenter.default.post(name: .reload, object: nil)
     }
     
