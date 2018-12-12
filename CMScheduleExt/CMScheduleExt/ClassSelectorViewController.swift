@@ -131,6 +131,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             button.type = "\(section.1["type"])"
             button.section = "\(section.1["name"])"
             button.periods = section.1["time-periods"]
+            button.room = "\(section.1["room"])"
             
             let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
             button.backgroundColor = backColor
@@ -191,17 +192,19 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         
         // get all the days and times of the class
         var days = [String:String]()
+        var semester = [String: String]()
         
         let timePeriods = sender.periods
         for period in timePeriods {
             days["\(period.1["day"])"] = "\(period.1["time"])"
+            semester["\(period.1["day"])"] = "\(period.1["date"])"
         }
         
         if timePeriods.isEmpty {
             showFailAlert()
         }
         else {
-            let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: "Fall", days: days)
+            let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: semester, days: days, room: sender.room)
             ScheduleViewController().addCourse(aCourse!)
             showSuccessAlert()
         }

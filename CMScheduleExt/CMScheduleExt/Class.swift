@@ -12,10 +12,11 @@ class Class{
     
     var name: String
     var type: String
-    var semester: String
+    var semester: [String:String]
     var days: [String: String]
+    var room: String
     
-    init? (name: String, type: String,  semester: String, days: [String:String]){
+    init? (name: String, type: String,  semester: [String:String], days: [String:String], room: String){
         
         if name.isEmpty {
             return nil
@@ -25,6 +26,7 @@ class Class{
         self.type = type
         self.semester = semester
         self.days = days
+        self.room = room
     }
     
     public func getStartTime(_ day: String) -> String{
