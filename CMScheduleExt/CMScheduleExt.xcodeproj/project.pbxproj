@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B7051CED218BC12700E54FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7051CEC218BC12700E54FDC /* Main.storyboard */; };
+		B711171B21B85BBE000E678D /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B711171A21B85BBE000E678D /* RestService.swift */; };
 		B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */; };
 		B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */; };
 		B747DDB021923EEC0055C2B5 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAF21923EEC0055C2B5 /* Class.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		B7051CEC218BC12700E54FDC /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B711171A21B85BBE000E678D /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
 		B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassSelectorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B747DDAF21923EEC0055C2B5 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				DEF3CE4B21815CAC003BD664 /* AppDelegate.swift */,
 				DEF3CE4D21815CAC003BD664 /* ViewController.swift */,
 				B788F5DA21A7BB8500959255 /* CourseData.swift */,
+				B711171A21B85BBE000E678D /* RestService.swift */,
 				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 				B747DDAF21923EEC0055C2B5 /* Class.swift */,
 				B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */,
@@ -290,6 +293,7 @@
 				B72B0FFF218FEF6F00DB3212 /* ClassSelectorViewController.swift in Sources */,
 				DEF3CE4C21815CAC003BD664 /* AppDelegate.swift in Sources */,
 				B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */,
+				B711171B21B85BBE000E678D /* RestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
