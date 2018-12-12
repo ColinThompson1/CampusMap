@@ -160,7 +160,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-d5-igC">
-                                <rect key="frame" x="137.5" y="310" width="100" height="30"/>
+                                <rect key="frame" x="137.5" y="227" width="100" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="RYi-4k-bvR"/>
@@ -322,7 +322,7 @@
                             <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="137.5" id="gr7-Vn-MS4"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="bottom" secondItem="zro-v4-7SC" secondAttribute="bottom" id="ius-6b-hEJ"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="o5k-H3-G20"/>
-                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="327" id="q1T-bG-gba"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="410" id="q1T-bG-gba"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zro-v4-7SC"/>
                     </view>
