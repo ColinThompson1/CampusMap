@@ -74,14 +74,23 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "classesRow", for: indexPath) //1.
+        let cellIdentifier = "ClassesViewCell"
+        
+        guard let cell = classes.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EventsTableViewCell else{
+            fatalError("The dequed cell is not an instance of EventsTableViewCell")
+        }
+        
+        let currentEvent = events[getNextDay(date, indexPath.section)]![indexPath.row]
         
         var name :String = ""
         name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
         
         let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
+        dateFormatter.dateFormat = "EEE"
+        cell.startTime.text = currentEvent.getStartTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
+        cell.endTime.text = currentEvent.getEndTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
         
-        cell.textLabel?.text = name + " | " + type //3.
+        cell.eventName.text = name + " | " + type
         
         return cell //4.
     }

@@ -33,4 +33,11 @@ class Class{
         
         return (timeSplitter?[0])!
     }
+    
+    public func getEndTime(_ day: String) -> String{
+        let time = days[day]
+        let timeSplitter = time?.components(separatedBy: " - ")
+        
+        return (timeSplitter?[1])!
+    }
 }
