@@ -138,6 +138,20 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return cell
         }
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
+            if let index = courses.index(of: courseToBeDeleted){
+                courses.remove(at: index)
+            }
+            classes.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
