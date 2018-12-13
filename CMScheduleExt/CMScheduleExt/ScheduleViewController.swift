@@ -18,7 +18,8 @@ var thu = [Class]()
 var fri = [Class]()
 var sat = [Class]()
 var sun = [Class]()
-var classData = CourseData().getData()
+//var classData = CourseData().getData()
+
 //classData["CPSC 313"]!["perdiodics"]!["Lecture 1"]!
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -116,7 +117,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let listOfEvents : [Class] = events[getNextDay(date, indexPath.section)]!
         if (listOfEvents.count == 0){
-            cell.contentView.backgroundColor = UIColor.gray
+            cell.contentView.backgroundColor = UIColor.lightGray
             cell.startTime.text = ""
             cell.endTime.text = ""
             cell.eventName.text = "No events here"
@@ -339,6 +340,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         sortCourses()
         saveEvents()
         NotificationCenter.default.post(name: .reload, object: nil)
+//        for i in courses {
+//            print("\(i.name), \(i.type), \(i.semester), \(i.days), \(i.room),")
+//        }
     }
     
     @objc func reloadTableData(_ notification: Notification) {

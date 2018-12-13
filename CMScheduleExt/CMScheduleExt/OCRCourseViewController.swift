@@ -34,6 +34,8 @@ class OCRCourseViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, commit editingStyle : UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            self.OCRData.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -60,6 +62,36 @@ class OCRCourseViewController: UIViewController, UITableViewDataSource, UITableV
         return 100
     }
     
+    func showSuccessAlert(classesAdded: Int) {
+        let alert = UIAlertController(title: "Added \(classesAdded) Classes Successfully", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    func showFailAlert() {
+        let alert = UIAlertController(title: "No Times for this Section", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    @IBAction func addAllAction(_ sender: Any) {
+        var classesAdded = 0
+        for index in OCRData {
+            if index?.name != nil {
+                let aCourse = Class(name: index!.name, type: index!.type, semester: index!.semester, days: index!.days, room: index!.room)
+                ScheduleViewController().addCourse(aCourse!)
+                classesAdded += 1
+            }
+            
+        }
+        
+        showSuccessAlert(classesAdded: classesAdded)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {self.dismiss(animated: true, completion: nil)})
+        
+        
+        
+    }
     @IBAction func cancelAction(_ sender: Any) {
         
         // create the alert

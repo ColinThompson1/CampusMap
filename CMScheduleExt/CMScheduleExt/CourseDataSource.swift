@@ -59,7 +59,7 @@ class CourseDataSource {
         
         let letter = ocrCourse.section.replacingOccurrences(of: "[0-9]", with: "", options: [.regularExpression])
         
-        let number = ocrCourse.section.split(separator: "T")[0]
+        let number = String(ocrCourse.section.split(separator: "T")[0])
         
         var type: ClassType
         switch letter {
@@ -72,16 +72,18 @@ class CourseDataSource {
                 type = ClassType.lecture
         }
         
-        guard let periodic = formalCourse.periodics["\(type) \(number)"] else {
+        guard let periodic = formalCourse.periodics["\(type.rawValue) \(number)"] else {
             print("Could not find periodic from ocr")
             return Optional.none
         }
         
         var days: [String : String] = [:]
+        var semesters: [String : String] = [:]
         for tp: TimePeriod in periodic.timePeriods {
             days[tp.day.rawValue] = tp.time
+            semesters[tp.day.rawValue] = tp.date
         }
         
-        return Class(name: tag, type: type.rawValue, semester: "Fall", days: days)
+        return Class(name: tag, type: type.rawValue, semester: semesters, days: days, room: periodic.room)
     }
 }
