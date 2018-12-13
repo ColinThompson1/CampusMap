@@ -55,6 +55,31 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return dateToString(getNextDay(date, section))
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.white
+        
+        let title = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.bounds.size.width, height: 23))
+        title.text = dateToString(getNextDay(date, section))
+        title.font = UIFont.boldSystemFont(ofSize: 16)
+        headerView.addSubview(title)
+        
+        let borderTop = UIView(frame: CGRect(x:0, y:0, width: tableView.bounds.size.width, height: 1.0))
+        borderTop.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+        headerView.addSubview(borderTop)
+
+        let borderBottom = UIView(frame: CGRect(x:0, y:25, width: tableView.bounds.size.width, height: 1.0))
+        borderBottom.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+        headerView.addSubview(borderBottom)
+
+        return headerView
+    
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
@@ -107,23 +132,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return 1;
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 20
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//
-//        let borderTop = UIView(frame: CGRect(x:0, y:0, width: tableView.bounds.size.width, height: 1.0))
-//        borderTop.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
-//        headerView.addSubview(borderTop)
-//
-//        let borderBottom = UIView(frame: CGRect(x:0, y:20, width: tableView.bounds.size.width, height: 1.0))
-//        borderBottom.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
-//        headerView.addSubview(borderBottom)
-//        return headerView
-//    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ClassesViewCell"
@@ -138,6 +147,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.startTime.text = ""
             cell.endTime.text = ""
             cell.eventName.text = "No classes scheduled"
+            cell.eventName.textColor = UIColor.lightGray
+            cell.seperator.backgroundColor = UIColor.lightGray
             return cell
         }else{
             cell.contentView.backgroundColor = UIColor.white
@@ -152,6 +163,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.endTime.text = currentEvent.getEndTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
             
             cell.eventName.text = name + " | " + type
+            cell.eventName.textColor = UIColor.black
+            
+            cell.seperator.backgroundColor = UIColor.black
             
             return cell
         }
@@ -344,12 +358,23 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func dateToString(_ date: Date) -> String{
-        dateFormatter.dateFormat = "EE"
+        dateFormatter.dateFormat = "EEEE"
         let nameOfDay = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "LLLL"
         let month = dateFormatter.string(from: date)
         let day = calendar.component(.day, from: date)
-        return "\(nameOfDay) \(month), \(day)"
+        let daySuffix: String
+        switch day {
+            case 1, 21, 31:
+                daySuffix = "st"
+            case 2, 22:
+                daySuffix = "nd"
+            case 3, 23:
+                daySuffix = "rd"
+            default:
+                daySuffix = "th"
+        }
+        return "\(nameOfDay) \(month), \(day)\(daySuffix)"
     }
     
     public func addCourse(_ course: Class){
@@ -412,20 +437,20 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return []
     }
     
-    fileprivate func showSelectedDate() {
-        guard let selectedDate = datePicker.selectedDate else {
-            return
-        }
-        
-        if events[selectedDate] != nil{
-            let secondsBetween = selectedDate.timeIntervalSince(date)
-            let numberOfDays = secondsBetween / 86400;
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 0, section: numberOfDays)
-                self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
-            }
-        }
-    }
+//    fileprivate func showSelectedDate() {
+////        guard let selectedDate = datePicker.selectedDate else {
+////            return
+////        }
+//
+//        if events[selectedDate] != nil{
+//            let secondsBetween = selectedDate.timeIntervalSince(date)
+//            let numberOfDays = secondsBetween / 86400;
+//            DispatchQueue.main.async {
+//                let indexPath = IndexPath(row: 0, section: numberOfDays)
+//                self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+//            }
+//        }
+//    }
     
 }
 
@@ -433,10 +458,10 @@ extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
 
-extension ScheduleViewController: ScrollableDatepickerDelegate {
-    
-    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
-        showSelectedDate()
-    }
-    
-}
+//extension ScheduleViewController: ScrollableDatepickerDelegate {
+//
+//    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+//        showSelectedDate()
+//    }
+//
+//}
