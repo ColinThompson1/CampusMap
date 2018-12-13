@@ -296,10 +296,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwj-2F-VK2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwj-2F-VK2">
                                                     <rect key="frame" x="75" y="10" width="2" height="69"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="2" id="3hi-0z-Jvy"/>
                                                         <constraint firstAttribute="height" constant="69" id="uH1-3g-Tv9"/>
@@ -307,7 +305,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="66Z-gi-XSA">
                                                     <rect key="frame" x="15" y="11" width="50" height="46"/>
@@ -397,6 +394,7 @@
                                             <outlet property="eventName" destination="MfG-cw-z2e" id="n5U-WV-3tn"/>
                                             <outlet property="location" destination="a4r-Ga-ASp" id="bBH-Jp-GQY"/>
                                             <outlet property="room" destination="s6U-QM-xt5" id="V6I-5Z-RaO"/>
+                                            <outlet property="seperator" destination="Uwj-2F-VK2" id="Zvq-Qb-KcN"/>
                                             <outlet property="startTime" destination="zXo-bv-0sT" id="GD5-Qg-oeT"/>
                                         </connections>
                                     </tableViewCell>

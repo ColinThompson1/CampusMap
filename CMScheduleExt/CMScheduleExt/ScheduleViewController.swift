@@ -55,6 +55,32 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return dateToString(getNextDay(date, section))
     }
 
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.white
+
+        let title = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.bounds.size.width, height: 23))
+        title.text = dateToString(getNextDay(date, section))
+        title.font = UIFont.boldSystemFont(ofSize: 16)
+        headerView.addSubview(title)
+
+        let borderTop = UIView(frame: CGRect(x:0, y:0, width: tableView.bounds.size.width, height: 1.0))
+        borderTop.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+        headerView.addSubview(borderTop)
+
+        let borderBottom = UIView(frame: CGRect(x:0, y:25, width: tableView.bounds.size.width, height: 1.0))
+        borderBottom.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+        headerView.addSubview(borderBottom)
+
+        return headerView
+
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
@@ -108,6 +134,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ClassesViewCell"
 
@@ -117,10 +144,12 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let listOfEvents : [Class] = events[getNextDay(date, indexPath.section)]!
         if (listOfEvents.count == 0){
-            cell.contentView.backgroundColor = UIColor.lightGray
+            cell.contentView.backgroundColor = UIColor(red: 224/255, green: 225/255, blue: 226/255, alpha: 1.0)
             cell.startTime.text = ""
             cell.endTime.text = ""
-            cell.eventName.text = "No events here"
+            cell.eventName.text = "No classes scheduled"
+            cell.eventName.textColor = UIColor.lightGray
+            cell.seperator.backgroundColor = UIColor.lightGray
             return cell
         }else{
             cell.contentView.backgroundColor = UIColor.white
@@ -135,6 +164,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.endTime.text = currentEvent.getEndTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
 
             cell.eventName.text = name + " | " + type
+            cell.eventName.textColor = UIColor.black
+
+            cell.seperator.backgroundColor = UIColor.black
 
             return cell
         }
@@ -327,12 +359,23 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func dateToString(_ date: Date) -> String{
-        dateFormatter.dateFormat = "EE"
+        dateFormatter.dateFormat = "EEEE"
         let nameOfDay = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "LLLL"
         let month = dateFormatter.string(from: date)
         let day = calendar.component(.day, from: date)
-        return "\(nameOfDay) \(month), \(day)"
+        let daySuffix: String
+        switch day {
+            case 1, 21, 31:
+                daySuffix = "st"
+            case 2, 22:
+                daySuffix = "nd"
+            case 3, 23:
+                daySuffix = "rd"
+            default:
+                daySuffix = "th"
+        }
+        return "\(nameOfDay) \(month), \(day)\(daySuffix)"
     }
 
     public func addCourse(_ course: Class){
