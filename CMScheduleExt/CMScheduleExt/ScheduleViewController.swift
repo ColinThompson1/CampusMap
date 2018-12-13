@@ -449,8 +449,22 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return []
     }
     
+    fileprivate func showSelectedDate() {
+        guard let selectedDate = datePicker.selectedDate else {
+            return
+        }
+    }
+    
 }
 
 extension Notification.Name {
     static let reload = Notification.Name("reload")
+}
+
+extension ScheduleViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+    
 }
