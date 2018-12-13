@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+workspace 'CMScheduleExt'
+
+target 'CMScheduleExt' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for CMScheduleExt
+  pod "PromiseKit", "~> 6.0"
+  pod "ScrollableDatepicker", "~> 2.2"
+
+  target 'CMScheduleExtTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'CMScheduleExtUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
