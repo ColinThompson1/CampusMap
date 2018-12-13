@@ -378,15 +378,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zma-rs-E78" customClass="ScrollableDatepicker" customModule="ScrollableDatepicker">
+                                <rect key="frame" x="0.0" y="133" width="375" height="47"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5dg-d5-igC" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" constant="137.5" id="3jy-gr-zPN"/>
+                            <constraint firstItem="zma-rs-E78" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="HOD-aq-HvQ"/>
+                            <constraint firstItem="zma-rs-E78" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="Uiw-dc-HTz"/>
                             <constraint firstItem="5dg-d5-igC" firstAttribute="centerX" secondItem="b6w-mR-sjt" secondAttribute="centerX" id="VND-JD-RtI"/>
+                            <constraint firstItem="zma-rs-E78" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" constant="69" id="WYc-Os-GsE"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="YdI-9a-HNM"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" constant="124" id="dGo-gH-0qr"/>
                             <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="137.5" id="gr7-Vn-MS4"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="bottom" secondItem="zro-v4-7SC" secondAttribute="bottom" id="ius-6b-hEJ"/>
+                            <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="zma-rs-E78" secondAttribute="bottom" constant="8" id="kZc-sw-ghE"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="o5k-H3-G20"/>
                             <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="410" id="q1T-bG-gba"/>
                         </constraints>
@@ -401,6 +409,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="classes" destination="b6w-mR-sjt" id="Oq7-CD-mK9"/>
+                        <outlet property="datePicker" destination="zma-rs-E78" id="xxl-QC-lH6"/>
                         <outlet property="today" destination="5dg-d5-igC" id="GmV-1g-8C5"/>
                     </connections>
                 </viewController>

@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import ScrollableDatepicker
 
 var courses = [Class] ()
 
@@ -28,6 +29,31 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
+    @IBOutlet weak var datePicker: ScrollableDatepicker!{
+        didSet {
+            var dates = [Date]()
+            for day in -15...200000 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datePicker.dates = dates
+            datePicker.selectedDate = Date()
+            datePicker.delegate = self as? ScrollableDatepickerDelegate
+            
+            var configuration = Configuration()
+            
+            // weekend customization
+            configuration.weekendDayStyle.dateTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            configuration.weekendDayStyle.dateTextFont = UIFont.boldSystemFont(ofSize: 20)
+            configuration.weekendDayStyle.weekDayTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            
+            // selected date customization
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datePicker.configuration = configuration
+        }
+    }
     private var data: [String] = []
 
 
@@ -44,6 +70,44 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     let dateFormatter2 = DateFormatter()
     
     var fetchingMore = false
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.classes.setEditing(editing, animated: animated)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return ((events[getNextDay(date, indexPath.section)]?.count)! > 0)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing{
+            return .delete
+        }
+        
+        return .none
+    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
+        let index = courses.index(of: courseToBeDeleted)
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+            courses.remove(at: index!)
+            self.saveEvents()
+            NotificationCenter.default.post(name: .reload, object: nil)
+        })
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
+            let index = courses.index(of: courseToBeDeleted)
+            courses.remove(at: index!)
+            saveEvents()
+            NotificationCenter.default.post(name: .reload, object: nil)
+        }
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -139,20 +203,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return cell
         }
     }
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
-            if let index = courses.index(of: courseToBeDeleted){
-                courses.remove(at: index)
-            }
-            classes.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +225,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         view.addGestureRecognizer(pan)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
-        view.addGestureRecognizer(tap)
+        //view.addGestureRecognizer(tap)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -211,6 +263,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         // Create right button
         let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ScheduleViewController.addClass))
         navigationItem.rightBarButtonItem = rightButton
+        
+        navigationItem.leftBarButtonItem = editButtonItem
         
         
         // Assign the navigation item to the navigation bar
@@ -297,6 +351,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }else{
             today.isHidden = true;
         }
+        
+        datePicker.selectedDate = getNextDay(date, sectionNumber!)
+        
+        datePicker.scrollToSelectedDate(animated: true)
         
         if offsetY > bottom - buffer{
             if !fetchingMore{
@@ -395,8 +453,22 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return []
     }
     
+    fileprivate func showSelectedDate() {
+        guard let selectedDate = datePicker.selectedDate else {
+            return
+        }
+    }
+    
 }
 
 extension Notification.Name {
     static let reload = Notification.Name("reload")
+}
+
+extension ScheduleViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+    
 }
