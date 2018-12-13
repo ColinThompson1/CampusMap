@@ -237,12 +237,21 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         guard let selectedImage = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        dismiss(animated: true, completion: nil)
         
-                print("hello")
-        let addVC = self.storyboard?.instantiateViewController(withIdentifier: "AddOCRClass") as! OCRCourseViewController
-        present(addVC, animated: true, completion: nil)
+        _ = RestService.shared.postPNG(path: "", params: [:], image: selectedImage, responseType: OCRCourses.self).then { (ocrCourses: [String : OCRCourse]) in
+            return CourseDataSource.shared.convertAll(cs: ocrCourses, semesterID: 2187)
+            }.done { (courses: [Class?]) in
+                
+                
+                let addVC = self.storyboard?.instantiateViewController(withIdentifier: "AddOCRClass") as! OCRCourseViewController
+                addVC.loadData(courseData: courses)
+                self.present(addVC, animated: true, completion: nil)
+
+        }
+        
         dismiss(animated: true, completion: nil)
+
+
 
     }
     

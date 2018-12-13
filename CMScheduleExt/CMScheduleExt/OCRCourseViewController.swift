@@ -8,13 +8,48 @@
 
 import UIKit
 
-class OCRCourseViewController: UIViewController {
+class OCRCourseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var OCRData = [Class?]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Ran")
+        print(OCRData)
+        
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         // Do any additional setup after loading the view.
+    }
+    
+    func loadData(courseData: [Class?]) {
+        OCRData = courseData
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return OCRData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OCRCell") as? OCRTableViewCell else {
+            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+        }
+        
+        cell.courseName.text = "\(OCRData[indexPath.row]?.name ?? "Class not found")"
+        cell.courseInfo.text = "\(OCRData[indexPath.row]?.type ?? "")"
+        return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 100
     }
     
     @IBAction func cancelAction(_ sender: Any) {

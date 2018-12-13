@@ -21,6 +21,7 @@
 		B788F5DB21A7BB8500959255 /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B788F5DA21A7BB8500959255 /* CourseData.swift */; };
 		B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */; };
 		B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */; };
+		B7C01B0B21C1D6DB00E1F730 /* OCRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */; };
 		DC2253A821C0BDD700ADAC18 /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */; };
 		DE8F9AB221C1861A00CE03F2 /* OCRCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F9AB121C1861A00CE03F2 /* OCRCourse.swift */; };
 		DE8F9AB621C1891A00CE03F2 /* test_schedule.PNG in Resources */ = {isa = PBXBuildFile; fileRef = DE8F9AB521C1891A00CE03F2 /* test_schedule.PNG */; };
@@ -78,6 +79,7 @@
 		B788F5DA21A7BB8500959255 /* CourseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseData.swift; sourceTree = "<group>"; };
 		B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASHorizontalScrollView.swift; sourceTree = "<group>"; };
 		B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTableViewCell.swift; sourceTree = "<group>"; };
 		B8FB6C4C39904F081B6A4C9A /* Pods_CMScheduleExt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CMScheduleExt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8ECC5251898B9ADC24004D6 /* Pods-CMScheduleExtTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMScheduleExtTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CMScheduleExtTests/Pods-CMScheduleExtTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				01F5307A21C0791C00DE1E0D /* ClassButton.swift */,
 				B788F5DA21A7BB8500959255 /* CourseData.swift */,
 				B74BA95C21C19889002608B3 /* OCRCourseViewController.swift */,
+				B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */,
 				B711171A21B85BBE000E678D /* RestService.swift */,
 				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 				B747DDAF21923EEC0055C2B5 /* Class.swift */,
@@ -470,6 +473,7 @@
 				DEC7C32721C0F0E100947488 /* ClassType.swift in Sources */,
 				DEC7C32221C0EF5E00947488 /* Periodic.swift in Sources */,
 				DEC7C31E21C0EF4200947488 /* Semester.swift in Sources */,
+				B7C01B0B21C1D6DB00E1F730 /* OCRTableViewCell.swift in Sources */,
 				B747DDB021923EEC0055C2B5 /* Class.swift in Sources */,
 				B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */,
 				DEC7C2FE21C088D100947488 /* CourseDataSource.swift in Sources */,
