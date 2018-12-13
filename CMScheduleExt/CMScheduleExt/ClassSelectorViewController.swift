@@ -11,7 +11,8 @@ import UIKit
 class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
 
     
-    var data = Array(classData.keys).sorted()
+    var data: [String] = []
+    var classData: [String : Course] = [:]
     var classSections: [String: Array<String>] = [:]
     
     
@@ -25,7 +26,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     var selectedClass = ""
     var filtered:[String] = []
     
-    static let shared = ClassSelectorViewController()
+//    static let shared = ClassSelectorViewController()
     fileprivate var currentVC: UIViewController!
     
     //MARK: Internal Properties
@@ -34,6 +35,11 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _ = CourseDataSource.shared.getCourses(semesterID: 2191).done { (courses: [String : Course]) in
+            self.data = courses.keys.sorted()
+            self.classData = courses
+        }
 
 
         
@@ -105,35 +111,26 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         //this must be called after changing any size or margin property of this class to get acurrate margin
         horizontalScrollView.setItemsMarginOnce()
         
-//        for section in classSections[cellName!]!{
-//            let button = UIButton(frame: CGRect.zero)
-//            button.setTitle(section, for: .normal)
-//            let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
-//            button.backgroundColor = backColor
-//            button.setTitleColor(UIColor.black, for: .normal)
-//            button.layer.cornerRadius = 5
-//            button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Thin" , size: 20)
-//            button.addTarget(self, action: #selector(sectionSelected), for: .touchUpInside)
-//
-//
-//            horizontalScrollView.addItem(button)
-//        }
         
-        let currentClassSections = classData[cellName!]!["periodics"]
+        guard let currentClassSections: [String : Periodic] = classData[cellName!]?.periodics else {
+            print("Cannot get periodics of course \(String(describing: cellName))")
+            return
+        }
+        let currentClassSectionKeys = currentClassSections.keys.sorted()
         
         
         //        MARK: UPDATE
 //        Needs to be updated to work with a dictionary instead
-        for section in currentClassSections{
-            
+        
+        for courseCode in currentClassSectionKeys {
             let button = ClassButton(frame: CGRect.zero)
-            button.setTitle("\(section.1["type"]) \(section.1["name"])", for: .normal)
+            button.setTitle("\(courseCode)", for: .normal)
             
             // pass this to the button press handler
-            button.type = "\(section.1["type"])"
-            button.section = "\(section.1["name"])"
-            button.periods = section.1["time-periods"]
-            button.room = "\(section.1["room"])"
+            button.type = currentClassSections[courseCode]!.type
+            button.section = currentClassSections[courseCode]!.name
+            button.periods = currentClassSections[courseCode]!.timePeriods
+            button.room = currentClassSections[courseCode]!.room
             
             let backColor = UIColor(red: 182/255, green: 209/255, blue: 146/255, alpha: 1)
             button.backgroundColor = backColor
@@ -146,6 +143,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             
             horizontalScrollView.addItem(button)
         }
+        
         
         
         cell.contentView.addSubview(horizontalScrollView)
@@ -198,15 +196,15 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         
         let timePeriods = sender.periods
         for period in timePeriods {
-            days["\(period.1["day"])"] = "\(period.1["time"])"
-            semester["\(period.1["day"])"] = "\(period.1["date"])"
+            days["\(period.day.rawValue)"] = "\(period.time)"
+            semester["\(period.day.rawValue)"] = "\(period.date)"
         }
         
         if timePeriods.isEmpty {
             showFailAlert()
         }
         else {
-            let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: semester, days: days, room: sender.room)
+            let aCourse = Class(name: selectedClass, type: sender.type.rawValue, semester: semester, days: days, room: sender.room)
             ScheduleViewController().addCourse(aCourse!)
             showSuccessAlert()
         }
@@ -235,13 +233,13 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     
-  /*  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
         _ = RestService.shared.postPNG(path: "", params: [:], image: selectedImage, responseType: OCRCourses.self).then { (ocrCourses: [String : OCRCourse]) in
-            return CourseDataSource.shared.convertAll(cs: ocrCourses, semesterID: 2187)
+            return CourseDataSource.shared.convertAll(cs: ocrCourses, semesterID: 2191)
             }.done { (courses: [Class?]) in
                 
                 
@@ -255,7 +253,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
 
 
 
-    } */
+    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         

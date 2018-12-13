@@ -12,23 +12,23 @@ import UIKit
 
 class ClassButton: UIButton {
     
-    var type: String
+    var type: ClassType
     var section: String
-    var periods: JSON
+    var periods: [TimePeriod]
     var room: String
     
     override init(frame: CGRect) {
-        self.type = ""
+        self.type = ClassType.lab
         self.section = ""
-        self.periods = ""
+        self.periods = []
         self.room = ""
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.type = ""
+        self.type = ClassType.lab
         self.section = ""
-        self.periods = ""
+        self.periods = []
         self.room = ""
         super.init(coder: aDecoder)
     }
