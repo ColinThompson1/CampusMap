@@ -16,7 +16,6 @@
 		B747DDAE21923EBC0055C2B5 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */; };
 		B747DDB021923EEC0055C2B5 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747DDAF21923EEC0055C2B5 /* Class.swift */; };
 		B77FB57421C1CBB60018232A /* OCRCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74BA95C21C19889002608B3 /* OCRCourseViewController.swift */; };
-		B788F5D521A7B4DE00959255 /* courseData.json in Resources */ = {isa = PBXBuildFile; fileRef = B788F5D421A7B4DE00959255 /* courseData.json */; };
 		B7A5037A21A7483A0005A05A /* ASHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */; };
 		B7A5037C21A766DB0005A05A /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */; };
 		B7C01B0B21C1D6DB00E1F730 /* OCRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */; };
@@ -72,7 +71,6 @@
 		B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B747DDAF21923EEC0055C2B5 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		B74BA95C21C19889002608B3 /* OCRCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRCourseViewController.swift; sourceTree = "<group>"; };
-		B788F5D421A7B4DE00959255 /* courseData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = courseData.json; sourceTree = "<group>"; };
 		B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASHorizontalScrollView.swift; sourceTree = "<group>"; };
 		B7A5037B21A766DB0005A05A /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRTableViewCell.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 				B74BA95C21C19889002608B3 /* OCRCourseViewController.swift */,
 				B7C01B0A21C1D6DB00E1F730 /* OCRTableViewCell.swift */,
 				B711171A21B85BBE000E678D /* RestService.swift */,
-				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 				B747DDAF21923EEC0055C2B5 /* Class.swift */,
 				B747DDAD21923EBC0055C2B5 /* ScheduleViewController.swift */,
 				B72B0FFE218FEF6F00DB3212 /* ClassSelectorViewController.swift */,
@@ -220,11 +217,11 @@
 				B7051CEC218BC12700E54FDC /* Main.storyboard */,
 				DC2253A721C0BDD700ADAC18 /* EventsTableViewCell.swift */,
 				DEF3CE5221815CAD003BD664 /* Assets.xcassets */,
-				B788F5D421A7B4DE00959255 /* courseData.json */,
 				DEF3CE5421815CAD003BD664 /* LaunchScreen.storyboard */,
 				DEF3CE5721815CAD003BD664 /* Info.plist */,
 				DEC7C2FB21C0885B00947488 /* RestService.swift */,
 				DEC7C2FD21C088D100947488 /* CourseDataSource.swift */,
+				B7A5037921A7483A0005A05A /* ASHorizontalScrollView.swift */,
 			);
 			path = CMScheduleExt;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 				DEF3CE5621815CAD003BD664 /* LaunchScreen.storyboard in Resources */,
 				DEF3CE5321815CAD003BD664 /* Assets.xcassets in Resources */,
 				B7051CED218BC12700E54FDC /* Main.storyboard in Resources */,
-				B788F5D521A7B4DE00959255 /* courseData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

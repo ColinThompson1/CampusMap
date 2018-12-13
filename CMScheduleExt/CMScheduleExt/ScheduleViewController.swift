@@ -336,13 +336,22 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     public func addCourse(_ course: Class){
-        courses.append(course)
-        sortCourses()
-        saveEvents()
-        NotificationCenter.default.post(name: .reload, object: nil)
-//        for i in courses {
-//            print("\(i.name), \(i.type), \(i.semester), \(i.days), \(i.room),")
-//        }
+        var duplicate = false
+        for index in courses {
+            
+            if index.name == course.name {
+                duplicate = true
+            }
+        }
+        if (duplicate == false) {
+            courses.append(course)
+            sortCourses()
+            saveEvents()
+            NotificationCenter.default.post(name: .reload, object: nil)
+        }
+//      for i in courses {
+//        print("\(i.name), \(i.type), \(i.semester), \(i.days), \(i.room),")
+//      }
     }
     
     @objc func reloadTableData(_ notification: Notification) {
@@ -400,3 +409,4 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
+

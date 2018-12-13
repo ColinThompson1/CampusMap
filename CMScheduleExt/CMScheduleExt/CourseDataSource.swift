@@ -84,6 +84,6 @@ class CourseDataSource {
             semesters[tp.day.rawValue] = tp.date
         }
         
-        return Class(name: tag, type: type.rawValue, semester: semesters, days: days, room: periodic.room)
+        return Class(name: tag, type: "\(type.rawValue) \(number)", semester: semesters, days: days, room: periodic.room)
     }
 }

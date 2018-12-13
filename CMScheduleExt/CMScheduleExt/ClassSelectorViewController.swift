@@ -11,26 +11,26 @@ import UIKit
 class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
 
     
-    var data: [String] = []
-    var classData: [String : Course] = [:]
-    var classSections: [String: Array<String>] = [:]
+
     
     
     // MARK: Properties
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var data: [String] = []
+    var classData: [String : Course] = [:]
+    var classSections: [String: Array<String>] = [:]
+    
     var searchActive : Bool = false
     var selected: IndexPath = IndexPath.init()
     var selectedScroller: ASHorizontalScrollView? = nil
     var selectedClass = ""
     var filtered:[String] = []
+    var spinner: UIView? = nil
     
-//    static let shared = ClassSelectorViewController()
-    fileprivate var currentVC: UIViewController!
     
-    //MARK: Internal Properties
-//    var imagePickedBlock: ((UIImage) -> Void)?
+
     
     
     override func viewDidLoad() {
@@ -40,8 +40,6 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             self.data = courses.keys.sorted()
             self.classData = courses
         }
-
-
         
         
         // Setup Delegates
@@ -59,7 +57,6 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     
     
     //MARK: - TableView Functions
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -118,10 +115,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         }
         let currentClassSectionKeys = currentClassSections.keys.sorted()
         
-        
-        //        MARK: UPDATE
-//        Needs to be updated to work with a dictionary instead
-        
+  
         for courseCode in currentClassSectionKeys {
             let button = ClassButton(frame: CGRect.zero)
             button.setTitle("\(courseCode)", for: .normal)
@@ -144,16 +138,12 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             horizontalScrollView.addItem(button)
         }
         
-        
-        
         cell.contentView.addSubview(horizontalScrollView)
         horizontalScrollView.translatesAutoresizingMaskIntoConstraints = false
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.contentView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0))
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.contentView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 40))
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 60))
         cell.contentView.addConstraint(NSLayoutConstraint(item: horizontalScrollView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: cell.contentView, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1, constant: 0))
-        
-
         
         selectedScroller = horizontalScrollView
         
@@ -168,12 +158,10 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     
     //    MARK: Actions
 
-    //    MARK: Rename Function
     @IBAction func backAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-
     func showSuccessAlert() {
         let alert = UIAlertController(title: "Added Successfully", message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
@@ -187,8 +175,6 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @objc func sectionSelected(sender: ClassButton!) {
-        print(selectedClass)
-        print(sender.currentTitle!)
         
         // get all the days and times of the class
         var days = [String:String]()
@@ -204,27 +190,17 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             showFailAlert()
         }
         else {
-            let aCourse = Class(name: selectedClass, type: sender.type.rawValue, semester: semester, days: days, room: sender.room)
+            let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: semester, days: days, room: sender.room)
             ScheduleViewController().addCourse(aCourse!)
             showSuccessAlert()
         }
     }
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     //    MARK: Image Picker
     
     @IBAction func ImportPhotoButton(_ sender: Any) {
-        var imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
   
@@ -242,39 +218,20 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
             return CourseDataSource.shared.convertAll(cs: ocrCourses, semesterID: 2191)
             }.done { (courses: [Class?]) in
                 
-                
+                self.removeSpinner(spinner: self.spinner!)
                 let addVC = self.storyboard?.instantiateViewController(withIdentifier: "AddOCRClass") as! OCRCourseViewController
                 addVC.loadData(courseData: courses)
                 self.present(addVC, animated: true, completion: nil)
 
         }
-        
+        spinner = displaySpinner(onView: self.view)
         dismiss(animated: true, completion: nil)
-
-
-
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
         dismiss(animated: true, completion: nil)
-        print("hello2")
     }
-    
-    
-    
-
-    
-//    func photoLibrary()
-//    {
-//
-//        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-//            let myPickerController = UIImagePickerController()
-//            myPickerController.delegate = self;
-//            myPickerController.sourceType = .photoLibrary
-//            currentVC.present(myPickerController, animated: true, completion: nil)
-//        }
-//    }
     
     //    MARK: Searchbar
     
@@ -336,77 +293,27 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         searchActive = false;
     }
     
+    // MARK: Spinner
+    func displaySpinner(onView : UIView) -> UIView {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        return spinnerView
+    }
+    
+    func removeSpinner(spinner :UIView) {
+        DispatchQueue.main.async {
+            spinner.removeFromSuperview()
+        }
+    }
+    
 
 }
-
-
-
-
-// Attempt at using Action Sheet for selcting classes
-
-//func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//    searchBar.resignFirstResponder()
-//
-//    //optional, to get from any UIButton for example
-//
-//    let indexPath = tableView.indexPathForSelectedRow
-//    let cell = tableView.cellForRow(at: indexPath!)
-//    let cellText = cell!.textLabel!.text ?? "Default Class"
-//
-//
-//
-//    let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
-//
-//
-//
-//    let action = UIAlertAction(title: "Save", style: .default){ _ in
-//        print("We can run a block of code." )
-//    }
-//
-//    let saveAction = UIAlertAction(title: "Save", style: .default)
-//
-//    // 3
-//    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//
-//    // 4
-//    optionMenu.addAction(saveAction)
-//    optionMenu.addAction(cancelAction)
-//    optionMenu.addAction(action)
-//
-//    // 5
-//    self.present(optionMenu, animated: true, completion: nil)
-//}
-
-
-
-
-//
-//        let optionMenu = UIAlertController(title: nil, message: cellText, preferredStyle: .actionSheet)
-//
-//
-//        for sectionName in classSections[cellText]! {
-//            optionMenu.addAction(UIAlertAction(title: sectionName, style: .default){ _ in
-//                        self.showAlert()
-//                        print(cellText)
-//                        print(sectionName)
-//
-//
-//                        })
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//
-//        // 4
-//
-//        optionMenu.addAction(cancelAction)
-//
-//
-////        let action = UIAlertAction(title: "Save", style: .default){ _ in
-////            print("We can run a block of code." )
-////        }
-////        optionMenu.addAction(action)
-//
-//        // 5
-//        self.present(optionMenu, animated: true, completion: nil)
-

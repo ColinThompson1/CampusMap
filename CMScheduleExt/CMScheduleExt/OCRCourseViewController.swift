@@ -17,7 +17,6 @@ class OCRCourseViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(OCRData)
         
         tableView.isEditing = true
         tableView.delegate = self
