@@ -44,6 +44,41 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var fetchingMore = false
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.classes.setEditing(editing, animated: animated)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return ((events[getNextDay(date, indexPath.section)]?.count)! > 0)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing{
+            return .delete
+        }
+        
+        return .none
+    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let complete =  UITableViewRowAction(style: .normal, title: "Complete")
+        { action, index in
+            print("more button tapped")
+        }
+        complete.backgroundColor = UIColor.green
+        return [complete]
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
+            if let index = courses.index(of: courseToBeDeleted){
+                courses.remove(at: index)
+            }
+            tableView.reloadData()
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return currentSectionAmount + 1
@@ -138,20 +173,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return cell
         }
     }
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
-            if let index = courses.index(of: courseToBeDeleted){
-                courses.remove(at: index)
-            }
-            classes.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -210,6 +233,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         // Create right button
         let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ScheduleViewController.addClass))
         navigationItem.rightBarButtonItem = rightButton
+        
+        navigationItem.leftBarButtonItem = editButtonItem
         
         
         // Assign the navigation item to the navigation bar

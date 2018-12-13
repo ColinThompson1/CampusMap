@@ -37,51 +37,51 @@ class CourseDataSource {
         return courses[semesterID] != nil
     }
     
-    func convertAll(cs: OCRCourses, semesterID: Int) -> Promise<[Class?]> {
-        return getCourses(semesterID: semesterID).compactMap { (formalCourses: [String : Course]) -> [Class?] in
-            var converted = [Class?]()
-            for c in cs.values {
-                converted.append(
-                    CourseDataSource.convert(ocrCourse: c, formalCourses: formalCourses)
-                )
-            }
-            return converted
-        }
-    }
+//    func convertAll(cs: OCRCourses, semesterID: Int) -> Promise<[Class?]> {
+//        return getCourses(semesterID: semesterID).compactMap { (formalCourses: [String : Course]) -> [Class?] in
+//            var converted = [Class?]()
+//            for c in cs.values {
+//                converted.append(
+//                    CourseDataSource.convert(ocrCourse: c, formalCourses: formalCourses)
+//                )
+//            }
+//            return converted
+//        }
+//    }
     
-    static func convert(ocrCourse: OCRCourse, formalCourses: [String : Course]) -> Class? {
-        let tag = "\(ocrCourse.courseCode) \(ocrCourse.courseNum)"
-        
-        guard let formalCourse: Course = formalCourses[tag] else {
-            print("Could not find course from ocr")
-            return Optional.none
-        }
-        
-        let letter = ocrCourse.section.replacingOccurrences(of: "[0-9]", with: "", options: [.regularExpression])
-        
-        let number = ocrCourse.section.split(separator: "T")[0]
-        
-        var type: ClassType
-        switch letter {
-            case "T":
-                type = ClassType.tutorial
-            case "B":
-                type = ClassType.lab
-            default:
-                //todo add Seminar to here and ocr
-                type = ClassType.lecture
-        }
-        
-        guard let periodic = formalCourse.periodics["\(type) \(number)"] else {
-            print("Could not find periodic from ocr")
-            return Optional.none
-        }
-        
-        var days: [String : String] = [:]
-        for tp: TimePeriod in periodic.timePeriods {
-            days[tp.day.rawValue] = tp.time
-        }
-        
-        return Class(name: tag, type: type.rawValue, semester: "Fall", days: days)
-    }
+//    static func convert(ocrCourse: OCRCourse, formalCourses: [String : Course]) -> Class? {
+//        let tag = "\(ocrCourse.courseCode) \(ocrCourse.courseNum)"
+//
+//        guard let formalCourse: Course = formalCourses[tag] else {
+//            print("Could not find course from ocr")
+//            return Optional.none
+//        }
+//
+//        let letter = ocrCourse.section.replacingOccurrences(of: "[0-9]", with: "", options: [.regularExpression])
+//
+//        let number = ocrCourse.section.split(separator: "T")[0]
+//
+//        var type: ClassType
+//        switch letter {
+//            case "T":
+//                type = ClassType.tutorial
+//            case "B":
+//                type = ClassType.lab
+//            default:
+//                //todo add Seminar to here and ocr
+//                type = ClassType.lecture
+//        }
+//
+//        guard let periodic = formalCourse.periodics["\(type) \(number)"] else {
+//            print("Could not find periodic from ocr")
+//            return Optional.none
+//        }
+//
+//        var days: [String : String] = [:]
+//        for tp: TimePeriod in periodic.timePeriods {
+//            days[tp.day.rawValue] = tp.time
+//        }
+//
+//        return Class(name: tag, type: type.rawValue, semester: "Fall", days: days)
+//    }
 }
