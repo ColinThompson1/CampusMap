@@ -61,21 +61,24 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return .none
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let complete =  UITableViewRowAction(style: .normal, title: "Complete")
-        { action, index in
-            print("more button tapped")
-        }
-        complete.backgroundColor = UIColor.green
-        return [complete]
+        
+        let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
+        let index = courses.index(of: courseToBeDeleted)
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+            courses.remove(at: index!)
+            self.saveEvents()
+            NotificationCenter.default.post(name: .reload, object: nil)
+        })
+        return [deleteAction]
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             let courseToBeDeleted = events[getNextDay(date, indexPath.section)]![indexPath.row]
-            if let index = courses.index(of: courseToBeDeleted){
-                courses.remove(at: index)
-            }
-            tableView.reloadData()
+            let index = courses.index(of: courseToBeDeleted)
+            courses.remove(at: index!)
+            saveEvents()
+            NotificationCenter.default.post(name: .reload, object: nil)
         }
     }
     
