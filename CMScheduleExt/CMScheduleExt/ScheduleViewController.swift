@@ -24,7 +24,7 @@ var sun = [Class]()
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var today: UIButton!
-    
+
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
@@ -33,28 +33,28 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 
 
     var events:[Date:[Class]] = [:]
-    
+
     var count = 0
     var currentSectionAmount = 4
     let cellBuffer: CGFloat = 2
-   
+
     let date = Date()
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
     let dateFormatter2 = DateFormatter()
-    
+
     var fetchingMore = false
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+
         return currentSectionAmount + 1
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
+
         return dateToString(getNextDay(date, section))
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dateFormatter.dateFormat = "EEEE"
         if ((dateFormatter.string(from: getNextDay(date, section))) == "Monday"){
@@ -107,14 +107,14 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return 1;
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ClassesViewCell"
-        
+
         guard let cell = classes.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EventsTableViewCell else{
             fatalError("The dequed cell is not an instance of EventsTableViewCell")
         }
-        
+
         let listOfEvents : [Class] = events[getNextDay(date, indexPath.section)]!
         if (listOfEvents.count == 0){
             cell.contentView.backgroundColor = UIColor.lightGray
@@ -125,24 +125,24 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }else{
             cell.contentView.backgroundColor = UIColor.white
             let currentEvent = listOfEvents[indexPath.row]
-            
+
             var name :String = ""
             name = (events[getNextDay(date, indexPath.section)]![indexPath.row]).name
-            
+
             let type: String = (events[getNextDay(date, indexPath.section)]![indexPath.row]).type
             dateFormatter.dateFormat = "EEE"
             cell.startTime.text = currentEvent.getStartTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
             cell.endTime.text = currentEvent.getEndTime(dateFormatter.string(from: getNextDay(date, indexPath.section)))
-            
+
             cell.eventName.text = name + " | " + type
-            
+
             return cell
         }
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -153,7 +153,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             classes.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
@@ -164,14 +164,14 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         sortCourses()
         classes.delegate = self
         classes.dataSource = self
-        
+
         view.bringSubviewToFront(today)
         today.setTitle("Today", for: .normal)
         today.isHidden = true
 
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
-        
+
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
         view.addGestureRecognizer(tap)
     }
@@ -186,8 +186,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         view.layer.cornerRadius = 10
         view.clipsToBounds = true
-        
-        
+
+
         // Blur the background
         //view.backgroundColor = .clear
         let blurEffect = UIBlurEffect.init(style: .light)
@@ -196,43 +196,43 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         bluredView.frame = self.view.bounds
         bluredView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(bluredView, at: 0)
-        
-        
+
+
         // Create the navigation bar
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
         navigationBar.backgroundColor = UIColor.clear
         // Make the navigation bar a subview of the current view controller
         self.view.addSubview(navigationBar)
-        
+
         // title
         let navigationItem = UINavigationItem()
         navigationItem.title = "Schedule"
-        
+
         // Create right button
         let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ScheduleViewController.addClass))
         navigationItem.rightBarButtonItem = rightButton
-        
-        
+
+
         // Assign the navigation item to the navigation bar
         navigationBar.items = [navigationItem]
     }
-    
-    
+
+
     @objc func addClass(sender: UIBarButtonItem) {
-        
+
         let addVC = storyboard!.instantiateViewController(withIdentifier :"AddClass") as! ClassSelectorViewController
         self.present(addVC, animated: true)
-        
+
         // reset the location of the card
         onTop = false
     }
-    
+
     /*private func loadSampleCourses() {
 
         let course1 = Class(name: "CPSC 575", type: "Lecture 01", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
         let course2 = Class(name: "CPSC 501", type: "Lecture 01", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
         let course3 = Class(name: "CPSC 413", type: "Lecture 01", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
-        
+
         courses.append(course1!)
         courses.append(course2!)
         courses.append(course3!)
@@ -245,7 +245,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         if (!onTop && (velocity < -300)) {
 
             onTop = true
-            
+
             UIView.animate(withDuration: 0.3) {
                 self.view.frame = CGRect(x: 0, y: self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
@@ -264,11 +264,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
+
     @objc func tapGesture(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
             let location = recognizer.location(in: self.view)
-            
+
             if location.y < self.view.frame.minY && onTop {
                 onTop = false
                 UIView.animate(withDuration: 0.3) {
@@ -283,21 +283,21 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
+
     func scrollViewDidScroll (_ scrollView: UIScrollView){
         let offsetY = scrollView.contentOffset.y
         let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
         let buffer: CGFloat = self.cellBuffer * 90
-        
+
         let indexPath = classes.indexPathsForVisibleRows
         let sectionNumber = indexPath?[0].section
-        
+
         if (sectionNumber! > 0 && sectionNumber != nil){
             today.isHidden = false;
         }else{
             today.isHidden = true;
         }
-        
+
         if offsetY > bottom - buffer{
             if !fetchingMore{
                 classes.reloadData()
@@ -305,17 +305,17 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
+
     func beginBatchFetch(){
         fetchingMore = true
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.50 , execute: {
             self.fetchingMore = false
-            
+
             self.currentSectionAmount += 3
         })
     }
-    
+
     @IBAction func todayButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
@@ -325,7 +325,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     func getNextDay(_ date: Date, _ days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
-    
+
     func dateToString(_ date: Date) -> String{
         dateFormatter.dateFormat = "EE"
         let nameOfDay = dateFormatter.string(from: date)
@@ -334,11 +334,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let day = calendar.component(.day, from: date)
         return "\(nameOfDay) \(month), \(day)"
     }
-    
+
     public func addCourse(_ course: Class){
         var duplicate = false
         for index in courses {
-            
+
             if index.name == course.name {
                 duplicate = true
             }
@@ -353,16 +353,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 //        print("\(i.name), \(i.type), \(i.semester), \(i.days), \(i.room),")
 //      }
     }
-    
+
     @objc func reloadTableData(_ notification: Notification) {
         classes.delegate = self
         classes.dataSource = self
         DispatchQueue.main.async { self.classes.reloadData() }
     }
-    
+
     func sortCourses(){
         dateFormatter.dateFormat = "HH:mm"
-        
+
         let monTemp = courses.filter({$0.days.index(forKey: "Mon") != nil})
         let tueTemp = courses.filter({$0.days.index(forKey: "Tue") != nil})
         let wedTemp = courses.filter({$0.days.index(forKey: "Wed") != nil})
@@ -370,7 +370,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let friTemp = courses.filter({$0.days.index(forKey: "Fri") != nil})
         let satTemp = courses.filter({$0.days.index(forKey: "Sat") != nil})
         let sunTemp = courses.filter({$0.days.index(forKey: "Sun") != nil})
-        
+
         mon = monTemp.sorted { dateFormatter.date(from: $0.getStartTime("Mon"))! < dateFormatter.date(from: $1.getStartTime("Mon"))! }
         tue = tueTemp.sorted { dateFormatter.date(from: $0.getStartTime("Tue"))! < dateFormatter.date(from: $1.getStartTime("Tue"))! }
         wed = wedTemp.sorted { dateFormatter.date(from: $0.getStartTime("Wed"))! < dateFormatter.date(from: $1.getStartTime("Wed"))! }
@@ -379,7 +379,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         sat = satTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sat"))! < dateFormatter.date(from: $1.getStartTime("Sat"))! }
         sun = sunTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sun"))! < dateFormatter.date(from: $1.getStartTime("Sun"))! }
     }
-    
+
     private func saveEvents() {
         do{
             let data = try NSKeyedArchiver.archivedData(withRootObject: courses, requiringSecureCoding: false)
@@ -389,24 +389,46 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             os_log("Failed to save classes...", log: OSLog.default, type: .error)
         }
     }
-    
+
     private func loadEvents() -> [Class]?  {
         do{
             let data = try Data(contentsOf: Class.ArchiveURL)
-            
+
             os_log("Classes successfully read.", log: OSLog.default, type: .debug)
-            
+
             return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Class]
         }catch{
             os_log("Failed to read classes...", log: OSLog.default, type: .error)
         }
-        
+
         return []
     }
-    
+
+    fileprivate func showSelectedDate() {
+        guard let selectedDate = datePicker.selectedDate else {
+            return
+        }
+
+        if events[selectedDate] != nil{
+            let secondsBetween = selectedDate.timeIntervalSince(date)
+            let numberOfDays = secondsBetween / 86400;
+            DispatchQueue.main.async {
+                let indexPath = IndexPath(row: 0, section: numberOfDays)
+                self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
+        }
+    }
+
 }
 
 extension Notification.Name {
     static let reload = Notification.Name("reload")
 }
 
+extension ScheduleViewController: ScrollableDatepickerDelegate {
+
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+
+}
