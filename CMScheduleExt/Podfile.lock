@@ -8,17 +8,21 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.7.0):
     - PromiseKit/CorePromise
+  - ScrollableDatepicker (2.2.0)
 
 DEPENDENCIES:
   - PromiseKit (~> 6.0)
+  - ScrollableDatepicker (~> 2.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - PromiseKit
+    - ScrollableDatepicker
 
 SPEC CHECKSUMS:
   PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
+  ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
 
-PODFILE CHECKSUM: 067f534f1bfe953ab87f4a0c44f76d93dc5fdd01
+PODFILE CHECKSUM: 5827ad24939797b5b6f1116234bfc919dc42f291
 
 COCOAPODS: 1.5.3

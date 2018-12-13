@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import ScrollableDatepicker
 
 var courses = [Class] ()
 
@@ -27,6 +28,31 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
+    @IBOutlet weak var datePicker: ScrollableDatepicker!{
+        didSet {
+            var dates = [Date]()
+            for day in -15...200000 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datePicker.dates = dates
+            datePicker.selectedDate = Date()
+            datePicker.delegate = self as? ScrollableDatepickerDelegate
+            
+            var configuration = Configuration()
+            
+            // weekend customization
+            configuration.weekendDayStyle.dateTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            configuration.weekendDayStyle.dateTextFont = UIFont.boldSystemFont(ofSize: 20)
+            configuration.weekendDayStyle.weekDayTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            
+            // selected date customization
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datePicker.configuration = configuration
+        }
+    }
     private var data: [String] = []
 
 
@@ -198,7 +224,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         view.addGestureRecognizer(pan)
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
-        view.addGestureRecognizer(tap)
+        //view.addGestureRecognizer(tap)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -324,6 +350,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }else{
             today.isHidden = true;
         }
+        
+        datePicker.selectedDate = getNextDay(date, sectionNumber!)
+        
+        datePicker.scrollToSelectedDate(animated: true)
         
         if offsetY > bottom - buffer{
             if !fetchingMore{
