@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E0CF1A93380D12DF31195B09E84C5782"
-               BuildableName = "Pods_CMScheduleExtTests.framework"
-               BlueprintName = "Pods-CMScheduleExtTests"
+               BlueprintIdentifier = "4A6C91F84FE411F8BBFAAE82361EC18D"
+               BuildableName = "ScrollableDatepicker.bundle"
+               BlueprintName = "ScrollableDatepicker-ScrollableDatepicker"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E0CF1A93380D12DF31195B09E84C5782"
-            BuildableName = "Pods_CMScheduleExtTests.framework"
-            BlueprintName = "Pods-CMScheduleExtTests"
+            BlueprintIdentifier = "4A6C91F84FE411F8BBFAAE82361EC18D"
+            BuildableName = "ScrollableDatepicker.bundle"
+            BlueprintName = "ScrollableDatepicker-ScrollableDatepicker"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
