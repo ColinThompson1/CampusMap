@@ -145,6 +145,23 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 20
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//
+//        let borderTop = UIView(frame: CGRect(x:0, y:0, width: tableView.bounds.size.width, height: 1.0))
+//        borderTop.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+//        headerView.addSubview(borderTop)
+//
+//        let borderBottom = UIView(frame: CGRect(x:0, y:20, width: tableView.bounds.size.width, height: 1.0))
+//        borderBottom.backgroundColor = UIColor.self.init(red: 5/255, green: 16/255, blue: 28/255, alpha: 1.0)
+//        headerView.addSubview(borderBottom)
+//        return headerView
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "ClassesViewCell"
         
@@ -154,10 +171,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let listOfEvents : [Class] = events[getNextDay(date, indexPath.section)]!
         if (listOfEvents.count == 0){
-            cell.contentView.backgroundColor = UIColor.gray
+            cell.contentView.backgroundColor = UIColor(red: 224/255, green: 225/255, blue: 226/255, alpha: 1.0)
             cell.startTime.text = ""
             cell.endTime.text = ""
-            cell.eventName.text = "No events here"
+            cell.eventName.text = "No classes scheduled"
             return cell
         }else{
             cell.contentView.backgroundColor = UIColor.white
