@@ -9,6 +9,7 @@ target 'CMScheduleExt' do
 
   # Pods for CMScheduleExt
   pod "PromiseKit", "~> 6.0"
+  pod "ScrollableDatepicker", "~> 2.2"
 
   target 'CMScheduleExtTests' do
     inherit! :search_paths

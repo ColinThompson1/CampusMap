@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import ScrollableDatepicker
 
 var courses = [Class] ()
 
@@ -18,9 +19,6 @@ var thu = [Class]()
 var fri = [Class]()
 var sat = [Class]()
 var sun = [Class]()
-//var classData = CourseData().getData()
-
-//classData["CPSC 313"]!["perdiodics"]!["Lecture 1"]!
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var today: UIButton!
@@ -28,6 +26,31 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var onTop = false
 
     @IBOutlet weak var classes: UITableView!
+    @IBOutlet weak var datepicker: ScrollableDatepicker!{
+        didSet {
+            var dates = [Date]()
+            for day in 0...1000 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datepicker.dates = dates
+            datepicker.selectedDate = Date()
+            datepicker.delegate = self as? ScrollableDatepickerDelegate
+            
+            var configuration = Configuration()
+            
+            // weekend customization
+            configuration.weekendDayStyle.dateTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            configuration.weekendDayStyle.dateTextFont = UIFont.boldSystemFont(ofSize: 20)
+            configuration.weekendDayStyle.weekDayTextColor = UIColor(red: 242.0/255.0, green: 93.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+            
+            // selected date customization
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 1)
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datepicker.configuration = configuration
+        }
+    }
     private var data: [String] = []
 
 
@@ -189,7 +212,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
-        //loadSampleCourses()
         if let savedEvents = loadEvents() {
             courses += savedEvents
         }
@@ -204,8 +226,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let pan = UIPanGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.panGesture))
         view.addGestureRecognizer(pan)
 
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
-        view.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer.init(target: self, action: #selector(ScheduleViewController.tapGesture))
+//        view.addGestureRecognizer(tap)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -258,17 +280,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         // reset the location of the card
         onTop = false
     }
-
-    /*private func loadSampleCourses() {
-
-        let course1 = Class(name: "CPSC 575", type: "Lecture 01", semester: "Fall", days: ["Mon": "13:00 - 14:00", "Wed": "13:00 - 14:00", "Fri": "13:00 - 14:00"])
-        let course2 = Class(name: "CPSC 501", type: "Lecture 01", semester: "Fall", days: ["Mon": "14:00 - 15:00", "Wed": "12:00 - 15:00", "Fri": "14:00 - 15:00"])
-        let course3 = Class(name: "CPSC 413", type: "Lecture 01", semester: "Fall", days: ["Tue": "13:00 - 14:00", "Thu": "13:00 - 14:00"])
-
-        courses.append(course1!)
-        courses.append(course2!)
-        courses.append(course3!)
-    }*/
 
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let velocity = recognizer.velocity(in: self.view).y
@@ -329,6 +340,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }else{
             today.isHidden = true;
         }
+        
+        datepicker.selectedDate = getNextDay(date, sectionNumber!)
+        datepicker.scrollToSelectedDate(animated: true)
 
         if offsetY > bottom - buffer{
             if !fetchingMore{
@@ -392,9 +406,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             saveEvents()
             NotificationCenter.default.post(name: .reload, object: nil)
         }
-//      for i in courses {
-//        print("\(i.name), \(i.type), \(i.semester), \(i.days), \(i.room),")
-//      }
     }
 
     @objc func reloadTableData(_ notification: Notification) {
@@ -448,17 +459,35 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     fileprivate func showSelectedDate() {
-        guard let selectedDate = datePicker.selectedDate else {
+        guard let selectedDate = datepicker.selectedDate else {
             return
         }
-
+        print(selectedDate)
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        let weirdDate = "2019/03/10"
+        let secondsBetween = selectedDate.timeIntervalSince(date)
+        var numberOfDays : Int
+        //The Date Picker we are using doesn't have March 10, 2019, so we did a quick fix to remedy it the date being off by one after the date.
+        if (dateFormatter.date(from: weirdDate)! < selectedDate){
+            numberOfDays = Int(secondsBetween / 86400) + 1
+        }else{
+            numberOfDays = Int(secondsBetween / 86400)
+        }
+        
         if events[selectedDate] != nil{
-            let secondsBetween = selectedDate.timeIntervalSince(date)
-            let numberOfDays = secondsBetween / 86400;
-            DispatchQueue.main.async {
-                let indexPath = IndexPath(row: 0, section: numberOfDays)
-                self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+            
+            if numberOfDays > (currentSectionAmount + 7){
+                currentSectionAmount += 7
+                classes.reloadData()
             }
+        }else{
+            currentSectionAmount += (numberOfDays + 7)
+            classes.reloadData()
+        }
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: 0, section: numberOfDays)
+            self.classes.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
 

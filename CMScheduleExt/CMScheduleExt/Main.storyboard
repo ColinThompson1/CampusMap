@@ -274,7 +274,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-d5-igC">
-                                <rect key="frame" x="137.5" y="227" width="100" height="30"/>
+                                <rect key="frame" x="137.5" y="150" width="100" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="RYi-4k-bvR"/>
@@ -400,17 +400,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiR-0B-Fdj" customClass="ScrollableDatepicker" customModule="ScrollableDatepicker">
+                                <rect key="frame" x="0.0" y="39" width="375" height="97"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5dg-d5-igC" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" constant="137.5" id="3jy-gr-zPN"/>
+                            <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="UiR-0B-Fdj" secondAttribute="bottom" constant="8" id="J2m-bW-VTA"/>
                             <constraint firstItem="5dg-d5-igC" firstAttribute="centerX" secondItem="b6w-mR-sjt" secondAttribute="centerX" id="VND-JD-RtI"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="YdI-9a-HNM"/>
+                            <constraint firstItem="UiR-0B-Fdj" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" constant="19" id="YrA-ag-k4X"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="top" secondItem="zro-v4-7SC" secondAttribute="top" constant="124" id="dGo-gH-0qr"/>
                             <constraint firstItem="zro-v4-7SC" firstAttribute="trailing" secondItem="5dg-d5-igC" secondAttribute="trailing" constant="137.5" id="gr7-Vn-MS4"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="bottom" secondItem="zro-v4-7SC" secondAttribute="bottom" id="ius-6b-hEJ"/>
+                            <constraint firstItem="UiR-0B-Fdj" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="lwO-Vg-ECF"/>
+                            <constraint firstItem="UiR-0B-Fdj" firstAttribute="leading" secondItem="zro-v4-7SC" secondAttribute="leading" id="nfp-LL-JET"/>
                             <constraint firstItem="b6w-mR-sjt" firstAttribute="trailing" secondItem="zro-v4-7SC" secondAttribute="trailing" id="o5k-H3-G20"/>
-                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="410" id="q1T-bG-gba"/>
+                            <constraint firstItem="zro-v4-7SC" firstAttribute="bottom" secondItem="5dg-d5-igC" secondAttribute="bottom" constant="487" id="q1T-bG-gba"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zro-v4-7SC"/>
                     </view>
@@ -423,6 +431,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="classes" destination="b6w-mR-sjt" id="Oq7-CD-mK9"/>
+                        <outlet property="datepicker" destination="UiR-0B-Fdj" id="k4n-bk-sd2"/>
                         <outlet property="today" destination="5dg-d5-igC" id="GmV-1g-8C5"/>
                     </connections>
                 </viewController>
