@@ -19,15 +19,23 @@ class OCRCourseViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         print(OCRData)
         
-        
+        tableView.isEditing = true
         tableView.delegate = self
         tableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
     
+
+    
     func loadData(courseData: [Class?]) {
         OCRData = courseData
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle : UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

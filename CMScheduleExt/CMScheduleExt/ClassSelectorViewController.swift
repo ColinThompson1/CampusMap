@@ -35,6 +35,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         
         
         // Setup Delegates
@@ -52,6 +53,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     
     
     //MARK: - TableView Functions
+    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -233,7 +235,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+  /*  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
@@ -253,7 +255,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
 
 
 
-    }
+    } */
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
