@@ -395,8 +395,31 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return []
     }
     
+    fileprivate func showSelectedDate() {
+        guard let selectedDate = datePicker.selectedDate else {
+            return
+        }
+        
+        if events[selectedDate] != nil{
+            let secondsBetween = selectedDate.timeIntervalSince(date)
+            let numberOfDays = secondsBetween / 86400;
+            DispatchQueue.main.async {
+                let indexPath = IndexPath(row: 0, section: numberOfDays)
+                self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
+            }
+        }
+    }
+    
 }
 
 extension Notification.Name {
     static let reload = Notification.Name("reload")
+}
+
+extension ScheduleViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+    
 }
