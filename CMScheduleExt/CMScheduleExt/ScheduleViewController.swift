@@ -35,7 +35,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             
             datepicker.dates = dates
             datepicker.selectedDate = Date()
-            datepicker.delegate = self as? ScrollableDatepickerDelegate
+            datepicker.delegate = self
             
             var configuration = Configuration()
             
