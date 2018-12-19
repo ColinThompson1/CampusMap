@@ -10,6 +10,8 @@ import UIKit
 import os.log
 import ScrollableDatepicker
 
+//MARK: Public Properties
+
 var courses = [Class] ()
 
 var mon = [Class]()
@@ -21,6 +23,8 @@ var sat = [Class]()
 var sun = [Class]()
 
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+    
+    //MARK: Properties
     @IBOutlet weak var today: UIButton!
 
     var onTop = false
@@ -367,44 +371,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    func beginBatchFetch(){
-        fetchingMore = true
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50 , execute: {
-            self.fetchingMore = false
-
-            self.currentSectionAmount += 3
-        })
-    }
-
     @IBAction func todayButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
             self.classes.scrollToRow(at: indexPath, at: .top, animated: true)
         }
-    }
-    func getNextDay(_ date: Date, _ days: Int) -> Date {
-        return Calendar.current.date(byAdding: .day, value: days, to: date)!
-    }
-
-    func dateToString(_ date: Date) -> String{
-        dateFormatter.dateFormat = "EEEE"
-        let nameOfDay = dateFormatter.string(from: date)
-        dateFormatter.dateFormat = "LLLL"
-        let month = dateFormatter.string(from: date)
-        let day = calendar.component(.day, from: date)
-        let daySuffix: String
-        switch day {
-            case 1, 21, 31:
-                daySuffix = "st"
-            case 2, 22:
-                daySuffix = "nd"
-            case 3, 23:
-                daySuffix = "rd"
-            default:
-                daySuffix = "th"
-        }
-        return "\(nameOfDay) \(month), \(day)\(daySuffix)"
     }
 
     public func addCourse(_ course: Class){
@@ -428,8 +399,44 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         classes.dataSource = self
         DispatchQueue.main.async { self.classes.reloadData() }
     }
+    
+    //MARK: Private Methods
+    
+    private func beginBatchFetch(){
+        fetchingMore = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50 , execute: {
+            self.fetchingMore = false
+            
+            self.currentSectionAmount += 3
+        })
+    }
+    
+    private func getNextDay(_ date: Date, _ days: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: date)!
+    }
+    
+    private func dateToString(_ date: Date) -> String{
+        dateFormatter.dateFormat = "EEEE"
+        let nameOfDay = dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "LLLL"
+        let month = dateFormatter.string(from: date)
+        let day = calendar.component(.day, from: date)
+        let daySuffix: String
+        switch day {
+        case 1, 21, 31:
+            daySuffix = "st"
+        case 2, 22:
+            daySuffix = "nd"
+        case 3, 23:
+            daySuffix = "rd"
+        default:
+            daySuffix = "th"
+        }
+        return "\(nameOfDay) \(month), \(day)\(daySuffix)"
+    }
 
-    func sortCourses(){
+    private func sortCourses(){
         dateFormatter.dateFormat = "HH:mm"
 
         let monTemp = courses.filter({$0.days.index(forKey: "Mon") != nil})
