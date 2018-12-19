@@ -156,6 +156,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             return 1;
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = classes.cellForRow(at: indexPath) as! EventsTableViewCell
+        let cellRoom: String = cell.room.text ?? ""
+        
+        let alert = UIAlertController(title: "Going to room \(cellRoom)", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -173,6 +183,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.eventName.text = "No classes scheduled"
             cell.eventName.textColor = UIColor.lightGray
             cell.seperator.backgroundColor = UIColor.lightGray
+            cell.room.text = ""
             return cell
         }else{
             cell.contentView.backgroundColor = UIColor.white
@@ -188,6 +199,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
 
             cell.eventName.text = name + " | " + type
             cell.eventName.textColor = UIColor.black
+            
+            var room: String = ""
+            room = (events[getNextDay(date, indexPath.section)]![indexPath.row]).room
+            cell.room.text = room
 
             cell.seperator.backgroundColor = UIColor.black
 
@@ -336,7 +351,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let sectionNumber = indexPath?[0].section
 
         if (sectionNumber! > 0 && sectionNumber != nil){
-            today.isHidden = false;
+            //today.isHidden = false;
         }else{
             today.isHidden = true;
         }

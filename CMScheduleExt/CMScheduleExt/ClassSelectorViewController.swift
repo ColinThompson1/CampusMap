@@ -191,6 +191,7 @@ class ClassSelectorViewController: UIViewController, UITableViewDataSource, UITa
         }
         else {
             let aCourse = Class(name: selectedClass, type: sender.currentTitle!, semester: semester, days: days, room: sender.room)
+            print(sender.room)
             ScheduleViewController().addCourse(aCourse!)
             showSuccessAlert()
         }
