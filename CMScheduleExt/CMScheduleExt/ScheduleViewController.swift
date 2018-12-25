@@ -22,6 +22,8 @@ var fri = [Class]()
 var sat = [Class]()
 var sun = [Class]()
 
+//MARK: ScheduleViewController
+
 class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     //MARK: Properties
@@ -71,6 +73,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     let dateFormatter2 = DateFormatter()
 
     var fetchingMore = false
+    
+    //MARK: Table Methods
 
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -289,8 +293,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         // Assign the navigation item to the navigation bar
         navigationBar.items = [navigationItem]
     }
-
-
+    
+    //MARK: Assorted Functions
     @objc func addClass(sender: UIBarButtonItem) {
 
         let addVC = storyboard!.instantiateViewController(withIdentifier :"AddClass") as! ClassSelectorViewController
@@ -346,16 +350,18 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
+    //Checks if the tableview was scrolled down to a certain point
     func scrollViewDidScroll (_ scrollView: UIScrollView){
         let offsetY = scrollView.contentOffset.y
         let bottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
+        //Set buffer to be the height of two table cells, which is 90
         let buffer: CGFloat = self.cellBuffer * 90
 
         let indexPath = classes.indexPathsForVisibleRows
         let sectionNumber = indexPath?[0].section
 
         if (sectionNumber! > 0 && sectionNumber != nil){
-            //today.isHidden = false;
+            today.isHidden = false;
         }else{
             today.isHidden = true;
         }
@@ -363,6 +369,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         datepicker.selectedDate = getNextDay(date, sectionNumber!)
         datepicker.scrollToSelectedDate(animated: true)
 
+        //If the table was scrolled down
         if offsetY > bottom - buffer{
             if !fetchingMore{
                 classes.reloadData()
@@ -370,7 +377,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-
+    
+    //When the "Today" button is pressed, go to the first section of the table, which will always be the current day
     @IBAction func todayButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
@@ -378,14 +386,18 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
+    //Adds class passed in through the parameters into the set of current courses
     public func addCourse(_ course: Class){
         var duplicate = false
+        //Checks if the course being added is not a course in the current schedule
         for index in courses {
 
             if index.name == course.name {
                 duplicate = true
             }
         }
+        
+        //If the course is not a duplicate, add the course to the set
         if (duplicate == false) {
             courses.append(course)
             sortCourses()
@@ -402,6 +414,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: Private Methods
     
+    //Reloads the table data by adding in 3 more sections (days) to the table
     private func beginBatchFetch(){
         fetchingMore = true
         
@@ -412,10 +425,16 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    //getNextDay(Current Day, Number of days)
+    //To use this function, put a date in the first paramter and the number of days in the second parameter
+    //Returns the date after the number of days passed from the date passed as a parameter
+    //ex. getNextDay("2018/12/24", 1), assuming "2018/12/24" is a Date object, would return "2018/12/25"
     private func getNextDay(_ date: Date, _ days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: date)!
     }
     
+    //Pass a date to the function to return a date in string form
+    //In the order of NameOfDay -> Month -> Day
     private func dateToString(_ date: Date) -> String{
         dateFormatter.dateFormat = "EEEE"
         let nameOfDay = dateFormatter.string(from: date)
@@ -436,6 +455,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return "\(nameOfDay) \(month), \(day)\(daySuffix)"
     }
 
+    //Filter the courses into their respective days
+    //Sorts the courses by time
     private func sortCourses(){
         dateFormatter.dateFormat = "HH:mm"
 
@@ -456,6 +477,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         sun = sunTemp.sorted { dateFormatter.date(from: $0.getStartTime("Sun"))! < dateFormatter.date(from: $1.getStartTime("Sun"))! }
     }
 
+    //Save the events into local memory
     private func saveEvents() {
         do{
             let data = try NSKeyedArchiver.archivedData(withRootObject: courses, requiringSecureCoding: false)
@@ -466,6 +488,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
+    //Extracts the data once the app starts
     private func loadEvents() -> [Class]?  {
         do{
             let data = try Data(contentsOf: Class.ArchiveURL)
@@ -480,6 +503,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return []
     }
 
+    //When a user picks a date in the data picker, the table will move to the selected date in the table
     fileprivate func showSelectedDate() {
         guard let selectedDate = datepicker.selectedDate else {
             return
@@ -496,6 +520,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             numberOfDays = Int(secondsBetween / 86400)
         }
         
+        //If the date section has not been loaded, load it in the table, along with a few more sections under it
         if events[selectedDate] != nil{
             
             if numberOfDays > (currentSectionAmount + 7){
@@ -507,6 +532,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
             classes.reloadData()
         }
         
+        //Scoll to the date selected
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: numberOfDays)
             self.classes.scrollToRow(at: indexPath, at: .top, animated: false)
@@ -514,6 +540,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
 }
+
+//MARK: Extensions
 
 extension Notification.Name {
     static let reload = Notification.Name("reload")
