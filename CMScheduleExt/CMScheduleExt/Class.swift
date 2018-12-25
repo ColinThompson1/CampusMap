@@ -34,6 +34,7 @@ class Class: NSObject, NSCoding{
         static let room = "room"
     }
     
+    //MARK: Initializer
     init? (name: String, type: String,  semester: [String:String], days: [String:String], room: String){
         
         if name.isEmpty {
@@ -47,6 +48,9 @@ class Class: NSObject, NSCoding{
         self.room = room
     }
     
+    //MARK: Public Functions
+    
+    //Get the start time of a class on the day passed in the parameter
     public func getStartTime(_ day: String) -> String{
         let time = days[day]
         let timeSplitter = time?.components(separatedBy: " - ")
@@ -54,6 +58,7 @@ class Class: NSObject, NSCoding{
         return (timeSplitter?[0])!
     }
     
+    //Get the end time of a class on the day passed in the parameter
     public func getEndTime(_ day: String) -> String{
         let time = days[day]
         let timeSplitter = time?.components(separatedBy: " - ")
@@ -61,6 +66,7 @@ class Class: NSObject, NSCoding{
         return (timeSplitter?[1])!
     }
     
+    //Get the date of when the class starts
     public func getStartDate(_ day: String) -> Date{
         
         dateFormatter.dateFormat = "yyyy/MM/dd"
@@ -71,6 +77,7 @@ class Class: NSObject, NSCoding{
         return dateFormatter.date(from:(timeSplitter?[0])!)!
     }
     
+    //Get the date of when the class ends
     public func getEndDate(_ day: String) -> Date{
         
         dateFormatter.dateFormat = "yyyy/MM/dd"
