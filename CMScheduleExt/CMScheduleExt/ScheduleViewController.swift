@@ -64,7 +64,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     var events:[Date:[Class]] = [:]
 
     var count = 0
-    var currentSectionAmount = 4
+    var currentSectionAmount = 7
     let cellBuffer: CGFloat = 2
 
     let date = Date()
@@ -510,15 +510,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         print(selectedDate)
         dateFormatter.dateFormat = "yyyy/MM/dd"
-        let weirdDate = "2019/03/10"
         let secondsBetween = selectedDate.timeIntervalSince(date)
-        var numberOfDays : Int
-        //The Date Picker we are using doesn't have March 10, 2019, so we did a quick fix to remedy it the date being off by one after the date.
-        if (dateFormatter.date(from: weirdDate)! < selectedDate){
-            numberOfDays = Int(secondsBetween / 86400) + 1
-        }else{
-            numberOfDays = Int(secondsBetween / 86400)
-        }
+        let numberOfDays = Int(secondsBetween / 86400)
         
         //If the date section has not been loaded, load it in the table, along with a few more sections under it
         if events[selectedDate] != nil{
